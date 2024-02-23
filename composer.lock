@@ -1,0 +1,65 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "8b84bb9c24764dcbaee4300d9521e309",
+    "packages": [
+        {
+            "name": "longdhdev/holaframework",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../version1",
+                "reference": "07387fde6f4dd2f5d18ca4b7fc245a3927bebee5"
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "package",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "v1.0.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/",
+                    "App\\Core\\": "core/",
+                    "App\\Middleware\\": "middleware/"
+                }
+            },
+            "scripts": {
+                "post-package-install": [
+                    "composer dump-autoload"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "hailong289",
+                    "email": "longdh.dev@gmail.com"
+                }
+            ],
+            "description": "A simple php framework",
+            "homepage": "https://github.com/hailong289/php-framework.git",
+            "transport-options": {
+                "relative": true
+            }
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "longdhdev/holaframework": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

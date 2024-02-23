@@ -1,0 +1,11 @@
+{
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../version1"
+    }
+  ],
+  "require": {
+    "longdhdev/holaframework": "1.0.0.x-dev"
+  }
+}
