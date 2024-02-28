@@ -11,7 +11,7 @@ class ConfigRouter extends Router {
 
     public function loadFile($name) {
         if(file_exists("router/$name.php")) {
-            require_once "index.php";
+            require_once "$name.php";
         } else {
             http_response_code(500);
             die("File $name in router does not exit");
