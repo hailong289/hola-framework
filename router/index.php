@@ -1,12 +1,12 @@
 <?php
-use App\Core\Router;
+use System\Core\Router;
 
 class ConfigRouter extends Router {
     protected $default = 'web';
 
     public function __construct()
     {
-        require_once "index.php";
+        require_once "$this->default.php";
     }
 
     public function loadFile($name) {

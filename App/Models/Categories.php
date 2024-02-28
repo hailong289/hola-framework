@@ -1,5 +1,5 @@
 <?php
-namespace System\Models;
+namespace App\Models;
 use System\Core\Model;
 use System\Core\Redis;
 

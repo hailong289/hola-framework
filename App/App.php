@@ -1,5 +1,5 @@
 <?php
-namespace System;
+namespace App;
 use System\Core\Request;
 use System\Core\Response;
 use System\Core\Router;
@@ -80,7 +80,6 @@ class App {
                 }
                 return $this;
             }
-
             if ($resultHandle['error_code'] === 1) {
                 return Response::view($resultHandle['view'], $resultHandle['return']);
             }

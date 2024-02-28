@@ -1,8 +1,6 @@
 <?php
-namespace System\Controllers;
-use App\Models\Categories;
+namespace App\Controllers;
 use System\Core\BaseController;
-use System\Core\Database;
 use System\Core\Request;
 use System\Core\Response;
 
