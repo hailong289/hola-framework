@@ -1,15 +1,4 @@
 {
-  "name": "longdhdev/holaframework",
-  "type": "package",
-  "description": "A simple php framework",
-  "homepage": "https://github.com/hailong289/project-php-framework.git",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "hailong289",
-      "email": "longdh.dev@gmail.com"
-    }
-  ],
   "repositories": [
     {
       "type": "path",
