@@ -1,8 +1,13 @@
 {
-  "repositories": [
+  "name": "hola/holaframework",
+  "type": "project",
+  "description": "A simple php framework",
+  "homepage": "https://github.com/hailong289/hola-framework.git",
+  "license": "MIT",
+  "authors": [
     {
-      "type": "path",
-      "url": "../version1"
+      "name": "hailong289",
+      "email": "longdh.dev@gmail.com"
     }
   ],
   "autoload": {
@@ -11,6 +16,14 @@
     }
   },
   "require": {
-    "longdhdev/holaframework": "1.0.0.x-dev"
+    "php": ">=7.4",
+    "longdhdev/holaframework": "dev-feature/version_1_0_6"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
+  "extra": {
+    "branch-alias": {
+      "dev-main": "v1.0.0"
+    }
   }
 }
