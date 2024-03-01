@@ -37,9 +37,10 @@ class App {
                 foreach ($method->getParameters() as $ag){
                     if($ag->name == 'request'){
                         array_push($agr, new Request());
-                    }else{
-                        $agr = [...$agr,...$this->__param];
                     }
+                }
+                foreach ($this->__param as $value) {
+                    array_push($agr, $value);
                 }
                 $result = $this->__controller->{$this->__action}(...$agr);
                 return [
