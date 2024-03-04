@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6526314-890e-49f6-88fe-59dc84d68054" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+    <list default="true" id="cff679ba-8999-43b9-82a5-f64a42df8a2c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php-framework.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" notifyAboutMissingVendor="false" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="module-info" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,10 +30,10 @@
       <path value="$PROJECT_DIR$/vendor/longdhdev/holaframework" />
     </include_path>
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2ckPL25QrGViVm60gtLo49J0ZSo" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2dDHsRBqljLLsoFT8BXEgg2KnUj" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,47 +45,20 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/laragon/www/php/php-framework",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
+    "last_opened_file_path": "C:/laragon/www/user-system-app",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\php\php-framework\core" />
-      <recent name="C:\laragon\www\php\php-framework" />
-      <recent name="C:\laragon\www\php\php-framework\router" />
-      <recent name="C:\laragon\www\php\php-framework\middleware" />
-      <recent name="C:\laragon\www\php\php-framework\storage" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\php\php-framework" />
-    </key>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e6526314-890e-49f6-88fe-59dc84d68054" name="Changes" comment="" />
-      <created>1708652543373</created>
+      <changelist id="cff679ba-8999-43b9-82a5-f64a42df8a2c" name="Changes" comment="" />
+      <created>1709535935727</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1708652543373</updated>
-      <workItem from="1708652544415" duration="633000" />
-      <workItem from="1708673474160" duration="5067000" />
-      <workItem from="1708910751983" duration="3177000" />
-      <workItem from="1708997777834" duration="858000" />
-      <workItem from="1709083696979" duration="5991000" />
-      <workItem from="1709102177063" duration="4284000" />
-      <workItem from="1709169671363" duration="762000" />
-      <workItem from="1709256874041" duration="10299000" />
+      <updated>1709535935727</updated>
+      <workItem from="1709535936718" duration="241000" />
     </task>
     <servers />
   </component>
