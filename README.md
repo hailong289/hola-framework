@@ -52,6 +52,13 @@ Router::get('/home/detail/{id}', [HomeController::class,'detail']);
 ```php
 $configRouter->add('api')->loadFile('api'); // https://domain.com/api
 $configRouter->add('api_v2')->loadFile('api_v2'); // https://domain.com/api_2
+// or 
+$configRouter->add([
+    'web' => 'web',
+    'api_v2' => 'api'
+])->work();
+// https://domain.com/web
+// https://domain.com/api_v2
 ```
 - Parameters in controller
 ```php
@@ -119,9 +126,9 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 - Run command create controller
 ```cmd
 - cd scripts
-- php controller.php create:NameController
+- php ci.php create:controller NameController
 // or
-- php controller.php create:folder/folder/NameController
+- php ci.php create:controller folder/folder/NameController
 ```
 ### Use model
 
