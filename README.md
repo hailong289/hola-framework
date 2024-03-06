@@ -126,9 +126,9 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 - Run command create controller
 ```cmd
 - cd scripts
-- php ci.php create:controller NameController
+- php cli.php create:controller NameController
 // or
-- php ci.php create:controller folder/folder/NameController
+- php cli.php create:controller folder/folder/NameController
 ```
 ### Use model
 
@@ -140,7 +140,7 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 - Run command create controller
 ```cmd
 - cd scripts
-- php model.php create:nameModel --table=name
+- php cli.php create:model NameModel table=name
 ```
 ```php
 <?php
@@ -260,9 +260,9 @@ class HomeController extends BaseController {
 - Run command create view
 ```cmd
 - cd scripts
-- php view.php create:name_view
+- php cli.php create:view name_view
 // or
-- php view.php create:folder/folder/name_view
+- php cli.php create:view folder/folder/name_view
 ```
 
 ### Use Request
@@ -870,7 +870,7 @@ class HomeController extends BaseController {
 - Run command create middleware
 ```cmd
 cd scripts
-php middleware.php create:Test
+php cli.php create:middleware NameMiddleware
 ```
 === way 1 ===
 ```php
@@ -1042,7 +1042,10 @@ return [
 
 echo __('number', ['value' => 10]); // print Total: 10
 ```
-### Queue
+
+## Warning currently the queue is not active yet
+
+### Queue 
 - Use queue with redis
 - To use queue, create a file in the queue folder and declare it as below
 - Create file Job1.php

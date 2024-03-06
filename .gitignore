@@ -1,3 +1,4 @@
 storage/debug.log
 vendor/*
 composer.lock
+.idea/*
