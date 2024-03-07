@@ -23,7 +23,7 @@
   },
   "require": {
     "php": ">=7.4",
-    "longdhdev/holaframework": "dev-feature/version_1_0_6"
+    "longdhdev/holaframework": "v1.0.6"
   },
   "minimum-stability": "dev",
   "prefer-stable" : true,
