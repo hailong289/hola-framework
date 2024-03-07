@@ -1,5 +1,5 @@
 <?php
-namespace System\Queue;
+namespace Queue\Jobs;
 class Job1 {
    public $params1 = 0;
    public $params2 = 0;
@@ -9,6 +9,7 @@ class Job1 {
        $this->params2 = $params2;
    }
    public function handle(){
+       sleep(10);
        // code here
    }
 }

@@ -53,4 +53,24 @@ switch ($name_control) {
         }
         require_once $name_path_script.'view.php';
         break;
+    case 'queue':
+        require_once 'core/function.php';
+        require_once 'config/constant.php';
+        require_once 'config/database.php';
+        require_once 'vendor/autoload.php';
+        unset($command[0]);
+        $command = array_values($command);
+        $type_queue = $command[0] ?? '';
+        if(empty($type_queue)) {
+            echo 'The queue is not null';
+            exit();
+        }
+        unset($command[0]);
+        $type_queue2 = array_values($command)[0] ?? '';
+        $job_queue = 'job';
+        if(!empty($type_queue2) && $type_queue2 === 'rollback_failed_job') {
+            $job_queue = 'job_failed';
+        }
+        require_once $name_path_script.'queue.php';
+        break;
 }

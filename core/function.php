@@ -1,4 +1,5 @@
 <?php
+
 if(!function_exists('startsWith')){
     function startsWith( $haystack, $needle ) {
         $length = strlen( $needle );
@@ -42,7 +43,10 @@ if(!function_exists('url')){
 if(!function_exists('view_root')){
     function view_root($view)
     {
-        return __DIR__ROOT . '/app/views/'.$view.'.view.php';
+        if(!file_exists(__DIR__ROOT . '/App/Views/'.$views.'.view.php')){
+            throw new \RuntimeException("File App/Views/$view.view.php does not exist", 500);
+        }
+        return __DIR__ROOT . '/App/views/'.$view.'.view.php';
     }
 }
 
@@ -69,10 +73,13 @@ if(!function_exists('log_write')){
 if(!function_exists('get_view')){
     function get_view($name, $data = [])
     {
+        if(!file_exists(__DIR__ROOT . '/App/Views/'.$views.'.view.php')){
+            throw new \RuntimeException("File App/Views/$view.view.php does not exist", 500);
+        }
         if(isset($GLOBALS['share_date_view']) && count($GLOBALS['share_date_view'])) $data = array_merge($data, $GLOBALS['share_date_view']);
         extract($data);
         $view = preg_replace('/([.]+)/', '/' , $name);
-        require_once __DIR__ROOT . '/app/views/'.$view.'.view.php';
+        require_once __DIR__ROOT . '/App/views/'.$view.'.view.php';
     }
 }
 
@@ -149,5 +156,21 @@ if(!function_exists('config_env')){
     function config_env($value, $default = '')
     {
         return defined($value) && constant($value) ?  constant($value):$default;
+    }
+}
+
+if(!function_exists('uid')){
+    function uid($data = null) {
+        // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
+        $data = $data ?? random_bytes(16);
+        assert(strlen($data) == 16);
+
+        // Set version to 0100
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+        // Set bits 6-7 to 10
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
+
+        // Output the 36 character UUID.
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 }
