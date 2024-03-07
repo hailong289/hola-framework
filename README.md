@@ -5,7 +5,7 @@
 ## Getting started
 
 ```
-composer create-project longdhdev/holaframework
+composer create-project longdhdev/project_holaframework
 ```
 ```
 composer install
