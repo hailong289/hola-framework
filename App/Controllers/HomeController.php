@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use App\Models\Categories;
 use System\Core\BaseController;
 use System\Core\Request;
 use System\Core\Response;
@@ -11,7 +12,6 @@ class HomeController extends BaseController {
     {}
 
     public function index(Request $request){
-        (new CreateQueue())->enQueue(new Job1(5,4));
         return Response::view('welcome');
     }
 
