@@ -9,7 +9,6 @@ class Job1 {
        $this->params2 = $params2;
    }
    public function handle(){
-       sleep(10);
        // code here
    }
 }

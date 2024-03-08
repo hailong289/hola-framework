@@ -125,7 +125,6 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 ```
 - Run command create controller
 ```cmd
-- cd scripts
 - php cli.php create:controller NameController
 // or
 - php cli.php create:controller folder/folder/NameController
@@ -139,7 +138,6 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 - You may not need to declare the 3 variables `$times_auto`, `$date_create`, `$date_update` if you do not use them.
 - Run command create controller
 ```cmd
-- cd scripts
 - php cli.php create:model NameModel table=name
 ```
 ```php
@@ -259,7 +257,6 @@ class HomeController extends BaseController {
 ```
 - Run command create view
 ```cmd
-- cd scripts
 - php cli.php create:view name_view
 // or
 - php cli.php create:view folder/folder/name_view
@@ -869,7 +866,6 @@ class HomeController extends BaseController {
 - Folder `` middleware/{name}Middleware.php``
 - Run command create middleware
 ```cmd
-cd scripts
 php cli.php create:middleware NameMiddleware
 ```
 === way 1 ===
@@ -1090,7 +1086,13 @@ class HomeController extends BaseController {
 ```
 - Run job queue
 ```cmd
- - php queue.php --queue=work
+ - php cli.php run:queue work
  // or
- - php queue.php --queue=live
+ - php cli.php run:queue live
+```
+- There are jobs that may have errors, you can run them again with the command below
+```cmd
+ - php cli.php run:queue work rollback_failed_job
+ // or
+ - php cli.php run:queue live rollback_failed_job
 ```

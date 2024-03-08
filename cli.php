@@ -4,7 +4,12 @@ $name_path_script =  'vendor/longdhdev/holaframework/scripts/';
 if(count($argv)) unset($argv[0]);
 $command = array_values($argv);
 $module = explode(':', $command[0]);
+$name_type_control = $module[0];
 $name_control = $module[1];
+if(!in_array($name_type_control,['create','run'])){
+    echo "$name_type_control:$name_control does not exist";
+    exit();
+}
 switch ($name_control) {
     case 'controller':
         unset($command[0]);
