@@ -25,13 +25,7 @@ class Categories extends Model {
     }
 
 
-    public static function index(){
-       $redis = Redis::work();
-       $key = 'data:categories';
-       $category = Redis::data($key);
-       if(empty($category)) $category = Redis::cacheRPush($key, Categories::get()->values(), 500);
-       return $category;
-    }
+    public static function index(){}
 
     public static function store(){
         echo 'store';

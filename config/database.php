@@ -47,7 +47,7 @@ define('DATABASE',[
         'production' => [
             'host' => config_env('REDIS_HOST_PRODUCTION', '127.0.0.1'),
             'port' =>  config_env('REDIS_PORT_PRODUCTION', '6379'),
-            'username' =>  config_env('REDIS_USER', 'default'),
+            'username' =>  config_env('REDIS_USER_PRODUCTION', 'default'),
             'password' => config_env('REDIS_PASSWORD_PRODUCTION', null),
             'timeout' => 0,
             'reserved' => null,
