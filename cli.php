@@ -1,5 +1,7 @@
 <?php
+require_once 'config/constant.php';
 define('__DIR__ROOT', __DIR__);
+date_default_timezone_set(TIMEZONE);
 $name_path_script =  'vendor/longdhdev/holaframework/scripts/';
 if(count($argv)) unset($argv[0]);
 $command = array_values($argv);

@@ -59,6 +59,7 @@
         <p>Message: <?= $message ?? '' ?></p>
         <p>Line: <?= $line ?? '' ?></p>
         <p>File:  <?= $file ?? '' ?></p>
+        <p>Trace:  <?= $trace ?? '' ?></p>
     </div>
 </div>
 </body>

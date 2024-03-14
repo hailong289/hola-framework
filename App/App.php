@@ -62,6 +62,7 @@ class App {
                     "message" => $e->getMessage(),
                     "line" => $e->getLine(),
                     "file" => $e->getFile(),
+                    "trace" => $e->getTraceAsString(),
                     "code" => $code
                 ],
                 "view" => "error.index"
@@ -72,6 +73,7 @@ class App {
         try {
             date_default_timezone_set(TIMEZONE);
             $this->router = new Router();
+            $is_api = (new Request())->isJson();
             $resultHandle = $this->handleUrl();
             if($resultHandle['error_code'] === 0){
                 if(is_array($resultHandle['return']) || is_object($resultHandle['return'])) {
@@ -82,6 +84,10 @@ class App {
                 return $this;
             }
             if ($resultHandle['error_code'] === 1) {
+                if($is_api) {
+                    echo json_encode($resultHandle['return']);
+                    exit();
+                }
                 return Response::view($resultHandle['view'], $resultHandle['return']);
             }
         }catch (\Throwable $e) {

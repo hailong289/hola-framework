@@ -1,8 +1,12 @@
 <?php
+require 'vendor/autoload.php';
 session_start();
 use App\App;
+use System\Core\Request;
+use System\Core\Response;
+$is_api = (new Request())->isJson();
+if ($is_api) header('Content-Type: application/json; charset=utf-8');
 try {
-    require 'vendor/autoload.php';
     require_once "bootstrap.php";
     $app = new App();
     $app->run();
@@ -16,6 +20,21 @@ try {
     }
     file_put_contents(__DIR__ROOT .'/storage/debug.log',$date . $e . PHP_EOL.PHP_EOL, FILE_APPEND);
     http_response_code($code ? $code:500);
-    echo $e;
-    throw $e;
+    if($is_api) {
+        echo json_encode([
+            "message" => $e->getMessage(),
+            "code" => $code,
+            "line" => $e->getLine(),
+            "file" => $e->getFile(),
+            "trace" => $e->getTraceAsString()
+        ]);
+        exit();
+    }
+    return Response::view("error.index", [
+        "message" => $e->getMessage(),
+        "code" => $code,
+        "line" => $e->getLine(),
+        "file" => $e->getFile(),
+        "trace" => $e->getTraceAsString()
+    ]);
 }
