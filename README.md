@@ -1039,10 +1039,12 @@ return [
 echo __('number', ['value' => 10]); // print Total: 10
 ```
 
-## Warning currently the queue is not active yet
-
 ### Queue 
-- Use queue with redis
+- Use queue with redis or database
+- Change queue connection in config/constant.php
+```php
+define('QUEUE_WORK', 'redis'); // use database or redis
+```
 - To use queue, create a file in the queue folder and declare it as below
 - Create file Job1.php
 ```php
@@ -1095,4 +1097,153 @@ class HomeController extends BaseController {
  - php cli.php run:queue work rollback_failed_job
  // or
  - php cli.php run:queue live rollback_failed_job
+```
+
+- using queue with database you will create 2 tables below
+- table failed_jobs
+```sql
+-- ----------------------------
+-- Table structure for failed_jobs
+-- ----------------------------
+DROP TABLE IF EXISTS `failed_jobs`;
+CREATE TABLE `failed_jobs`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+```
+- table jobs
+```sql
+
+-- ----------------------------
+-- Table structure for jobs
+-- ----------------------------
+DROP TABLE IF EXISTS `jobs`;
+CREATE TABLE `jobs`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `created_at` datetime NULL DEFAULT NULL,
+  `updated_at` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
+```
+
+### Mail
+
+- Send mail integrate the package phpmailer/phpmailer into project
+- Configure email inside the config/constant.php file
+
+```php
+define('MAIL_CONNECTION', 'smtp');
+define('MAIL_HOST', 'smtp.gmail.com');
+define('MAIL_PORT', 465);
+define('MAIL_USERNAME', 'username@gmail.com');
+define('MAIL_PASSWORD', 'password');
+define('MAIL_ENCRYPTION', 'ssl');
+define('MAIL_DEBUG', 0);
+```
+
+- You can send mail via the Email class, for example the code below 
+
+```php 
+<?php
+namespace App\Controllers;
+use System\Core\BaseController;
+use System\Core\Mail;
+
+class HomeController extends BaseController {
+    public function __construct()
+    {}
+
+    public function sendMail()
+    {
+        $content = <<<HTML
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+             <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+                         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+             <title>Title</title>
+</head>
+<body>
+    This is the email content you want to write
+</body>
+</html>
+HTML;
+        $mail = new Mail();
+        $mail->getMail()->SMTPDebug = 1; // debug mail
+        $mail->from('youremail@gmail.com') // email sent
+            ->withHTML() // Send email with html
+            ->to('yourremail@gmail.com') // email you want to send to
+            ->withData([
+                'title' => 'tilte', // email title
+                'content' => $content, // email content,
+                'cc' => ['emailcc1@gmail.com'], // You want to cc an email
+                'cc' => [
+                    ['email' => 'emailcc1@gmail.com', 'name' => ''],
+                    ['email' => 'emailcc2@gmail.com', 'name' => '']
+                ], // cc multiple emails, name can be left empty or added
+                'bcc' => ['emailbcc1@gmail.com'], // You want to bcc an email
+                'bcc' => [
+                    ['email' => 'emailbcc1@gmail.com', 'name' => ''],
+                    ['email' => 'emailbcc2@gmail.com', 'name' => '']
+                ], // bcc multiple emails, name can be left empty or added
+                'attachment' => ['file'], // file attached
+                'attachment' => [
+                    ['name'=> 'file1'],
+                    ['name'=> 'file2'],
+                ] // file attached
+            ])
+            ->work(); // received email
+    }
+
+}
+```
+- Use functions of package phpmailer/phpmailer
+```php
+<?php
+namespace App\Controllers;
+use System\Core\BaseController;
+use System\Core\Mail;
+class HomeController extends BaseController {
+    public function __construct()
+    {}
+
+    public function sendMail()
+    {
+        $mail = new Mail();
+        $mail = $mail->getMail(); // clone phpmailer
+        try {
+            //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            //Recipients
+            $mail->setFrom('from@example.com', 'Mailer');
+            $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
+            $mail->addAddress('ellen@example.com');               //Name is optional
+            $mail->addReplyTo('info@example.com', 'Information');
+            $mail->addCC('cc@example.com');
+            $mail->addBCC('bcc@example.com');
+
+            //Attachments
+            $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+            $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Here is the subject';
+            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+
+}
 ```
