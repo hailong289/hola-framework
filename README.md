@@ -1064,6 +1064,11 @@ class Job1 {
    }
 }
 ```
+- Create queue job with command
+
+```cmd
+php cli.php create:queue_job SendEmail
+```
 - Used in controllers
 
 ```php 

@@ -60,6 +60,18 @@ switch ($name_control) {
         }
         require_once $name_path_script.'view.php';
         break;
+
+    case 'queue_job':
+        unset($command[0]);
+        $command = array_values($command);
+        $name_job = $command[0] ?? '';
+        if(empty($name_job)) {
+            echo 'The queue jobs is not null';
+            exit();
+        }
+        require_once $name_path_script.'jobs.php';
+        break;
+
     case 'queue':
         require_once 'core/function.php';
         require_once 'config/constant.php';
