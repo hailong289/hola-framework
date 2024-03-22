@@ -13,24 +13,16 @@
   "autoload": {
     "psr-4": {
       "App\\": "App/",
-      "Queue\\Jobs\\": "queue/"
+      "Queue\\Jobs\\": "queue/",
+      "Request\\": "Request/"
     },
     "classmap": [
       "App/",
       "queue/"
     ]
   },
-  "scripts": {
-    "post-root-package-install": [
-      "php -r \"copy('vendor/longdhdev/holaframework/core/function.php', 'core/function.php');\""
-    ],
-    "post-autoload-dump": [
-      "php -r \"copy('vendor/longdhdev/holaframework/core/function.php', 'core/function.php');\""
-    ]
-  },
   "require": {
     "php": ">=7.4",
-    "longdhdev/holaframework": "v1.0.6",
     "phpmailer/phpmailer": "v6.9.1"
   },
   "minimum-stability": "dev",

@@ -73,7 +73,6 @@ switch ($name_control) {
         break;
 
     case 'queue':
-        require_once 'core/function.php';
         require_once 'config/constant.php';
         require_once 'config/database.php';
         require_once 'vendor/autoload.php';

@@ -1,7 +1,6 @@
 <?php
 ini_set('error_reporting', E_STRICT);
 define('__DIR__ROOT', __DIR__);
-require_once 'core/function.php';
 
 // auto load file
 $config_dir = glob('config/*.php');
