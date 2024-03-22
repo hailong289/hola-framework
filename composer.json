@@ -23,6 +23,7 @@
   },
   "require": {
     "php": ">=7.4",
+    "longdhdev/holaframework": "v1.0.6",
     "phpmailer/phpmailer": "v6.9.1"
   },
   "minimum-stability": "dev",
