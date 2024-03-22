@@ -53,17 +53,20 @@ const handleRule = (params, rules, element) =>{
     var count = 0;
     for (const key in convert_params) {
         const input = $(element).find(`input[name="${key}"]`);
+        const select = $(element).find(`select[name="${key}"]`);
+        const textarea = $(element).find(`textarea[name="${key}"]`);
+        const dom = input ? input:select ? select:textarea;
         if(rules[key]){
             for (const key_rule in rules[key]) {
                 const key_new = key_rule.split('_');
-                const result = validationRule[key_new[0]](input.val(), rules[key][key_rule], key_new[1] ?? '');
+                const result = validationRule[key_new[0]](dom.val(), rules[key][key_rule], key_new[1] ?? '');
                 if(result) {
                     count++;
-                    input.addClass('border-danger');
-                    input.parents().find('.error_'+key).html(result);
+                    dom.addClass('border-danger');
+                    dom.parents().find('.error_'+key).html(result);
                 } else {
-                    input.removeClass('border-danger');
-                    input.parents().find('.error_'+key).html('');
+                    dom.removeClass('border-danger');
+                    dom.parents().find('.error_'+key).html('');
                     count--;
                 }
             }

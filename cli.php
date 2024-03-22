@@ -92,4 +92,15 @@ switch ($name_control) {
         }
         require_once $name_path_script.'queue.php';
         break;
+
+    case 'request':
+        unset($command[0]);
+        $command = array_values($command);
+        $name_request = $command[0] ?? '';
+        if(empty($name_request)) {
+            echo 'The request is not null';
+            exit();
+        }
+        require_once $name_path_script.'request.php';
+        break;
 }

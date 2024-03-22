@@ -57,9 +57,15 @@
         <div style="text-align:center;" class="icon__download"></div>
         <h1> <?= $code ?? 500 ?></h1>
         <p>Message: <?= $message ?? '' ?></p>
+        <?php if(isset($line)): ?>
         <p>Line: <?= $line ?? '' ?></p>
+         <?php endif; ?>
+        <?php if(isset($file)): ?>
         <p>File:  <?= $file ?? '' ?></p>
+        <?php endif; ?>
+        <?php if(isset($trace)): ?>
         <p>Trace:  <?= $trace ?? '' ?></p>
+        <?php endif; ?>
     </div>
 </div>
 </body>

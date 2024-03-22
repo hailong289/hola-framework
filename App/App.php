@@ -35,9 +35,8 @@ class App {
                 $method = new \ReflectionMethod($this->__controller, $this->__action);
                 $agr = [];
                 foreach ($method->getParameters() as $ag){
-                    if($ag->name == 'request'){
-                        array_push($agr, new Request());
-                    }
+                    $class = $ag->getClass()->name;
+                    if(!empty($class)) array_push($agr, new $class());
                 }
                 foreach ($this->__param as $value) {
                     array_push($agr, $value);
