@@ -18,7 +18,8 @@
     },
     "classmap": [
       "App/",
-      "queue/"
+      "queue/",
+      "Request/"
     ]
   },
   "require": {
