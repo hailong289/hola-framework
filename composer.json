@@ -14,7 +14,8 @@
     "psr-4": {
       "App\\": "App/",
       "Queue\\Jobs\\": "queue/",
-      "Request\\": "Request/"
+      "Request\\": "Request/",
+      "Commands\\": "commands/"
     },
     "classmap": [
       "App/",
