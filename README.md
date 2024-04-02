@@ -1286,3 +1286,70 @@ class HomeController extends BaseController {
 
 }
 ```
+### Command
+- To start using the command, run the command below to create a command
+- For example, here I will create a command with the name Test1
+- ``php cli.php create:command Test1``
+- The variable $command is the command you will run for example ``php cli.php run:command_test``
+- The variable $command_description is the command title of a command
+- The $arguments variable is the parameters you want to pass for example ``php cli.php run:command_test name``
+- The $options variable is the options as in the example``php cli.php run:command_test name --options1=1 --options2=234``
+```php
+<?php
+namespace Commands;
+use System\Core\Command;
+
+class Test2Command extends Command {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    protected $command = 'run:command_test';
+    protected $command_description = 'A command to run';
+    protected $arguments = ['username'];
+    protected $options = ['options1', 'options2];
+
+    public function handle()
+    {
+        $groups = [1,2,3,4,5];
+        $progressBar = $this->createProgressBar(count($groups));
+        echo $this->getArgument('username');
+        $progressBar->start();
+        foreach ($groups as $group)
+        {
+            sleep(2);
+            $progressBar->advance();
+        }
+        $progressBar->finish();
+        $this->output()->text('success');
+    }
+}
+```
+- By default $arguments will be mandatory. If you do not want it to be mandatory, you can declare it as below
+```php
+  protected $arguments = ['?username','?password'];
+```
+- By default $options will be mandatory. If you do not want it required, you can declare it as below
+```php
+  protected $options = ['?group1','?group2'];
+```
+- If you do not want to use arguments and options, you may not need to declare them in the command, for example:
+```php
+<?php
+namespace Commands;
+use System\Core\Command;
+
+class Test2Command extends Command {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    protected $command = 'run:command_test';
+    protected $command_description = 'A command to run';
+
+    public function handle()
+    {
+        $this->output()->text('success');
+    }
+}
+```
