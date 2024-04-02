@@ -1091,17 +1091,49 @@ class HomeController extends BaseController {
 
 }
 ```
+- You can change the connection with the connection function see the code below
+
+```php 
+<?php
+namespace App\Controllers;
+use System\Core\BaseController;
+use System\Core\Request;
+use System\Core\Response;
+use System\Queue\CreateQueue;
+use System\Queue\Job1;
+
+class HomeController extends BaseController {
+    public function __construct()
+    {}
+
+    public function index(Request $request){
+        (new CreateQueue())->connection('redis')->enQueue(new Job1(5,6));
+        (new CreateQueue())->connection('database')->enQueue(new Job1(5,6));
+        return Response::view('welcome');
+    }
+
+}
+```
+```cmd
+// run queue connection
+ - php cli.php queue:run redis
+ - php cli.php queue:run database
+```
+- We have defaulted the queue name to jobs. If you want to change it, you can use the setQueue function
+```php
+ (new CreateQueue())->setQueue('name_queue1')->enQueue(new Job1(5,6));
+ (new CreateQueue())->setQueue('name_queue2')->enQueue(new Job1(5,6));
+ // run queue name
+ - php cli.php queue:run --queue=name_queue1
+ - php cli.php queue:run --queue=name_queue2
+```
 - Run job queue
 ```cmd
- - php cli.php run:queue work
- // or
- - php cli.php run:queue live
+ - php cli.php queue:run
 ```
 - There are jobs that may have errors, you can run them again with the command below
 ```cmd
- - php cli.php run:queue work rollback_failed_job
- // or
- - php cli.php run:queue live rollback_failed_job
+ - php cli.php queue:run --queue=rollback_failed_job
 ```
 
 - using queue with database you will create 2 tables below
@@ -1113,7 +1145,8 @@ class HomeController extends BaseController {
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `queue` varchar(255) DEFAULT 'jobs',
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -1128,7 +1161,8 @@ CREATE TABLE `failed_jobs`  (
 DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `queue` varchar(255) DEFAULT 'jobs',
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
