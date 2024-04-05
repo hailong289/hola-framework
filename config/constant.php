@@ -23,6 +23,7 @@ define('REDIS_PASSWORD', null);
 
 // queue
 define('QUEUE_WORK', 'redis'); // use database or redis
+define('QUEUE_TIMEOUT', '600'); // default timeout 10 minutes
 
 // mail
 define('MAIL_CONNECTION', 'smtp');
