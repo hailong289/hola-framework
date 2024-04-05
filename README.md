@@ -138,7 +138,7 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 - You may not need to declare the 3 variables `$times_auto`, `$date_create`, `$date_update` if you do not use them.
 - Run command create controller
 ```cmd
-- php cli.php create:model NameModel table=name
+- php cli.php create:model NameModel --table=name
 ```
 ```php
 <?php
@@ -1067,7 +1067,7 @@ class Job1 {
 - Create queue job with command
 
 ```cmd
-php cli.php create:queue_job SendEmail
+php cli.php create:jobs SendEmail
 ```
 - Used in controllers
 
@@ -1126,6 +1126,11 @@ class HomeController extends BaseController {
  // run queue name
  - php cli.php queue:run --queue=name_queue1
  - php cli.php queue:run --queue=name_queue2
+```
+- Currently jobs have a running time of about 10 minutes, you can also change the QUEUE_TIMEOUT constant in the constants.php file
+- Additionally, if you do not want to set independent time for each job, you can use the setTimeOut function
+```php
+    (new CreateQueue())->setTimeOut(100)->enQueue(new Job1(5,6));
 ```
 - Run job queue
 ```cmd
