@@ -20,6 +20,7 @@ $app->add(new \Scripts\RequestScript());
 $app->add(new \Scripts\MiddlewareScript());
 $app->add(new \Scripts\QueueScript());
 $app->add(new \Scripts\CommandScript());
+$app->add(new \Scripts\MailScript());
 $app->run();
 
 
