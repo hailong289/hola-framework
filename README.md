@@ -50,6 +50,8 @@ Router::get('/home/detail/{id}', [HomeController::class,'detail']);
 - The ``add()`` function will identify your path and the ``loadFile()`` function will load the router file you just created
 
 ```php
+use System\Core\ConfigRouter;
+$configRouter = new ConfigRouter();
 $configRouter->add('api')->loadFile('api'); // https://domain.com/api
 $configRouter->add('api_v2')->loadFile('api_v2'); // https://domain.com/api_2
 // or 
@@ -1290,6 +1292,35 @@ class HomeController extends BaseController {
     }
 
 }
+```
+- In version v1.0.2 you can create a class to send separate mail with the command below
+```cmd
+php cli.php create:mail name_mail_class
+```
+- The file structure will look like this
+```php 
+<?php
+namespace Mails;
+use System\Core\Mail;
+class DefaultMail extends Mail {
+    protected $useQueue = false;
+    public function __construct()
+    {
+        parent::__construct();
+    }
+   
+    public function handle()
+    {
+         echo "send mail";
+    }
+
+}
+```
+- If the variable $useQueue is false, when you call the mail class it will be executed immediately. If $useQueue is true, it will be pushed into the queue.
+- Note that when using the product, you will use the code below
+```php 
+(new CreateQueue())->enQueue(new DefaultMail()); // use queue
+(new DefaultMail()); // not use queue
 ```
 ### Command
 - To start using the command, run the command below to create a command

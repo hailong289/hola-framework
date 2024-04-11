@@ -77,7 +77,7 @@ class App {
             if($resultHandle['error_code'] === 0){
                 if(is_array($resultHandle['return']) || is_object($resultHandle['return'])) {
                     echo json_encode($resultHandle['return']);
-                } else {
+                } elseif (!is_file($resultHandle['return'])) {
                     echo $resultHandle['return'];
                 }
                 return $this;

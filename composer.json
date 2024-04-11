@@ -15,13 +15,15 @@
       "App\\": "App/",
       "Queue\\Jobs\\": "queue/",
       "Request\\": "request/",
-      "Commands\\": "commands/"
+      "Commands\\": "commands/",
+      "Mails\\": "mails/"
     },
     "classmap": [
       "App/",
       "queue/",
       "request/",
-      "commands/"
+      "commands/",
+      "mails/"
     ]
   },
   "require": {
