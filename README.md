@@ -837,6 +837,150 @@ class HomeController extends BaseController {
     })->value(); // filter data and get one
 ```
 
+### Use relation (version v1.0.2)
+- Different types of relationships:
+  + One to One
+  + One to Many
+  + Many to Many
+  
+- Note that when you use relation, you will always have to declare the Relations trait
+** Let's start with the One to One relationship first **
+- A one-to-one relationship is a very basic relationship. For example, a User can be associated with 1 Email. To define this relationship, we place an email method on the User model. The email method should return the result of a hasOne method:
+- The hasOne function will receive parameters. For example, the first parameter is the model call or the name of the table you want to join. The second parameter is the foreign key of the table. The third parameter will be the primary key you want to map with the foreign key.
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class User extends Model {
+    use Relations;
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function email()
+    {
+        return $this->hasOne(Phone::class, 'user_id', 'id');
+    }
+}
+```
+- Once you have successfully created the association with hasOne then you can call it like the code below
+```php
+   $email = User::with('email')->find(1)->email; // or
+   $email = (new User())->email()->find(1)->email;
+```
+- Now, we will define a relationship on the Email model that will allow us to access the User model. We use hasOne's inverse belongsTo method
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class Email extends Model {
+    use Relations;
+    /**
+     * Get the user that owns the email.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
+    }
+}
+```
+
+** One To Many **
+- A one-to-many relationship is used to define relationships when one model owns multiple quantities of another model. For example, a blog post has many comments. Like many other Eloquent relationships, one-to-many is defined by a function placed on your model:
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class Blog extends Model {
+    use Relations;
+     /**
+     * Get the comments for the blog post.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'blog_id', 'id');
+    }
+}
+```
+- Once the relationship is defined, we can access the comments collection by accessing the comments property as follows
+```php
+$comments = Blog::with('comments')->find(1)->comments; // or
+$comments = (new Blog())->comments()->find(1)->comments; 
+```
+- Now that we can access all comments, let's define a relationship to allow comments to be accessed from a post. To determine the inverse of a hasMany relationship, we use the belongsTo method
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class Comment extends Model {
+    use Relations;
+     /**
+     * Get the post that owns the comment.
+     */
+    public function blog()
+    {
+        return $this->belongsTo(Blog::class, 'id', 'blog_id');
+    }
+}
+```
+- Once the relationship is defined, we can get the Post model for a Comment by accessing the blog
+```php
+$blog = Comment::with('blog')->find(1)->blog; // or
+$blog = (new Comment())->blog()->find(1)->blog; 
+```
+
+** Many To Many **
+- many-to-many, a slightly more complex relationship than hasOne and hasMany. An example of this relationship is that 1 user will have many roles and 1 role will also belong to many users. To define this relationship, it is necessary to have 3 tables: users, roles and user_role. The user_role table will contain 2 columns user_id and role_id.
+- A many-to-many relationship is defined by calling the belongsToMany or manyToMany based method. For example, let's define the roles method on the User model.
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class User extends Model {
+    use Relations;
+     /**
+     * The roles that belong to the user.
+     */
+    public function role()
+    {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id', 'id');
+    }
+    // way two
+    public function role()
+    {
+        return $this->manyToMany(Role::class, 'user_role', 'user_id', 'role_id', 'id');
+    }
+}
+```
+- For example
+```php
+$roles = User::with('role')->find(1)->role; // or
+$roles = (new User())->role()->find(1)->role; 
+```
+
+- Additionally, you can use the query builder inside the with function as in the example below 
+- The syntax below will get the id, title for blogs with views greater than 0 in category 6
+```php 
+  $query = Categories::with(['blog' => function ($query) {
+      return $query->select('id, title')->where('view','>',0);
+  }])->find(6)->value(); 
+```
+
+- Use count and sum
+```php
+$sum = Categories::sum('view')->values();
+$count = Categories::count('id')->values();
+```
+
 - use collection with array
 ```php
     $array = [
