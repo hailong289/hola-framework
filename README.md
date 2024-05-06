@@ -1298,6 +1298,7 @@ CREATE TABLE `failed_jobs`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `queue` varchar(255) DEFAULT 'jobs',
+  `exception` text DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
