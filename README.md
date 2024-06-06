@@ -241,12 +241,13 @@ class Categories extends Model {
 ### Use view
 - Create view in folder app/views with name {name_file}.view.php
 - Use view controller
+
 ```php
 <?php
 namespace App\Controllers;
 use App\Models\Categories;
 use System\Core\BaseController;
-use System\Core\Request;
+use System\Core\Request;use System\Core\Response;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -255,7 +256,30 @@ class HomeController extends BaseController {
     public function index(){
         return $this->render_view('name_file', ["title" => "Home"]);
     }
+    // or
+    public function index2(){
+        return Response::view('name_file', ["title" => "Home"]);
+    }
 }
+```
+- Using the variable in the example view in the code line above to pass the title parameter with the date value, you can declare it as follows
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- use -->
+  <title><?=$title?></title>
+  <!-- or use variable var -->
+  <title><?=@var('title')?></title>
+</head>
+<body>
+
+</body>
+</html>
 ```
 - Run command create view
 ```cmd
