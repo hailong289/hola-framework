@@ -16,15 +16,20 @@
       "Queue\\Jobs\\": "queue/",
       "Request\\": "request/",
       "Commands\\": "commands/",
-      "Mails\\": "mails/"
+      "Mails\\": "mails/",
+      "Middleware\\": "middleware/"
     },
     "classmap": [
       "App/",
       "queue/",
       "request/",
       "commands/",
-      "mails/"
+      "mails/",
+      "middleware/"
     ]
+  },
+  "config": {
+    "platform-check": false
   },
   "require": {
     "php": ">=7.4",
