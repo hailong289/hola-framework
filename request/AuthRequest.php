@@ -16,4 +16,25 @@ class AuthRequest extends FormRequest
     {
         return [];
     }
+
+    /**
+     * @return string
+     * This function you can return view as you want, this function can be declared or not needed
+     * If you want to use this function, you must declare the auth function first
+     */
+    public function view_auth() {
+        return 'error.index';
+    }
+
+    /**
+     * @return array
+     * This function you can return data as you want, this function can be declared or not needed
+     * If you want to use this function, you must declare the auth function first
+     */
+    public function data_auth() {
+        return [
+            'message' => 'unauthorized',
+            'code' => 403
+        ];
+    }
 }

@@ -182,10 +182,14 @@ class Controller extends BaseController {
         ]);
     }
     public function listCategories(){
-         $data = $this->Categories::get()->values();
+         $data = $this->Categories::instance()->get()->values();
+         // or
+         $data = $this->Categories->get()->values();
     }
     public function listProduct(){
-         $data = $this->Product::get()->values();
+         $data = $this->Product::instance()->get()->values();
+         // or
+         $data = $this->Product->get()->values();
          return $data;
     }
 }
@@ -194,17 +198,12 @@ class Controller extends BaseController {
 ```php
 class Controller extends BaseController {
     public function __construct()
-    {
-        $this->model([
-            Categories::class,
-            Product::class
-        ]);
-    }
+    {}
     public function listCategories(){
-         $data = Categories::get()->values();
+         $data = Categories::instance()->get()->values();
     }
     public function listProduct(){
-         $data = Product::get()->values();
+         $data = Product::instance()->get()->values();
          return $data;
     }
 }
@@ -480,42 +479,42 @@ class Controller extends BaseController {
 
 - Get one record in model
 ```php
-   Categories::first()->values();
+   Categories::instance()->first()->values();
 ```
 
 - Get one record buy column with function where
 ```php
-   Categories::where('id','=', 1)->first()->values(); // get by id
-   Categories::where('name','=', 1)->first()->values(); // get by name
-   Categories::where('name','like', '%value%')->first()->values(); // get by name
+   Categories::instance()->where('id','=', 1)->first()->values(); // get by id
+   Categories::instance()->where('name','=', 1)->first()->values(); // get by name
+   Categories::instance()->where('name','like', '%value%')->first()->values(); // get by name
 ```
 - Get all record in model
 ```php
-   Categories::get()->values();
+   Categories::instance()->get()->values();
 ```
 - Get all record buy column with function where
  
   ``The get() function will return an object. If you want to return an array data type, you can use the getArray() function.``
 ```php
-   Categories::where('id','=', 1)->get()->values(); // get by id
-   Categories::where('name','=', 1)->get()->values(); // get by name
-   Categories::where('name','like', '%value%')->get()->values(); // get by name
+   Categories::instance()->where('id','=', 1)->get()->values(); // get by id
+   Categories::instance()->where('name','=', 1)->get()->values(); // get by name
+   Categories::instance()->where('name','like', '%value%')->get()->values(); // get by name
        
    // return data type array
-   Categories::where('id','=', 1)->getArray(); // get by id
-   Categories::where('name','=', 1)->getArray(); // get by name
-   Categories::where('name','like', '%value%')->getArray(); // get by name
+   Categories::instance()->where('id','=', 1)->getArray(); // get by id
+   Categories::instance()->where('name','=', 1)->getArray(); // get by name
+   Categories::instance()->where('name','like', '%value%')->getArray(); // get by name
    // version 1.0.6
-   Categories::where('id','=', 1)->get()->toArray(); // get by id
-   Categories::where('name','=', 1)->get()->toArray(); // get by name
-   Categories::where('name','like', '%value%')->get()->toArray(); // get by name
+   Categories::instance()->where('id','=', 1)->get()->toArray(); // get by id
+   Categories::instance()->where('name','=', 1)->get()->toArray(); // get by name
+   Categories::instance()->where('name','like', '%value%')->get()->toArray(); // get by name
 ```
 ```php
-    $data1 = Categories::select('*')->where(function (Database $q){
+    $data1 = Categories::instance()->select('*')->where(function (Database $q){
         $q->where('id',3)->orWhere('id',2);
     })->get()->toArray();
     
-    $data2 = Categories::select('*')->where(function (Database $q){
+    $data2 = Categories::instance()->select('*')->where(function (Database $q){
         $q->where('id',3);
     })->orWhere(function (Database $q){
         $q->where('id',2);
@@ -523,89 +522,89 @@ class Controller extends BaseController {
 ```
 - use select()
 ```php
-   Categories::select('*')->get()->values();
-   Categories::select(['*'])->get()->values();
-   Categories::select(['id','name'])->get()->values();
+   Categories::instance()->select('*')->get()->values();
+   Categories::instance()->select(['*'])->get()->values();
+   Categories::instance()->select(['id','name'])->get()->values();
 
    // with sum and count 
-   Summary::select([
+   Summary::instance()->select([
        'SUM(amount) as amount',
        'SUM(amount2) as amount2',
    ])->get()->values();
-   Region::select([
+   Region::instance()->select([
        'COUNT(id) as number'
    ])->get()->values();
 ```
 - use findById()
 
 ```php
-   Categories::findById(1); 
+   Categories::instance()->findById(1); 
 ```
 - use orWhere()
 ```php
-   Categories::where('id','=', 1)->orWhere('id','=',2)->get()->values(); 
+   Categories::instance()->where('id','=', 1)->orWhere('id','=',2)->get()->values(); 
 ```
 - use whereLike()
 ```php
-   Categories::whereLike('name', '%long')->get()->values(); 
-   Categories::whereLike('name', 'long%')->get()->values(); 
-   Categories::whereLike('name', '%long%')->get()->values(); 
+   Categories::instance()->whereLike('name', '%long')->get()->values(); 
+   Categories::instance()->whereLike('name', 'long%')->get()->values(); 
+   Categories::instance()->whereLike('name', '%long%')->get()->values(); 
 ```
 
 - use orWhereLike()
 ```php
-   Categories::orWhereLike('name', '%long')->get()->values(); 
-   Categories::orWhereLike('name', 'long%')->get()->values(); 
-   Categories::orWhereLike('name', '%long%')->get()->values(); 
+   Categories::instance()->orWhereLike('name', '%long')->get()->values(); 
+   Categories::instance()->orWhereLike('name', 'long%')->get()->values(); 
+   Categories::instance()->orWhereLike('name', '%long%')->get()->values(); 
 ```
 - use whereIn()
 ```php
-   Categories::whereIn('id', [1,2])->get()->values(); 
+   Categories::instance()->whereIn('id', [1,2])->get()->values(); 
 ```
 - use orWhereIn()
 ```php
-   Categories::orWhereIn('id', [1,2])->get()->values(); 
+   Categories::instance()->orWhereIn('id', [1,2])->get()->values(); 
 ```
 - use whereNotIn()
 ```php
-   Categories::whereNotIn('id', [1,2])->get()->values(); 
+   Categories::instance()->whereNotIn('id', [1,2])->get()->values(); 
 ```
 - use orWhereNotIn()
 ```php
-   Categories::orWhereNotIn('name', [1,2])->get()->values(); 
+   Categories::instance()->orWhereNotIn('name', [1,2])->get()->values(); 
 ```
 - use whereBetween()
 ```php
-   Categories::whereBetween('date', ['2023-01-01 00:00:01','2023-12-31 23:59:59'])->get()->values(); 
+   Categories::instance()->whereBetween('date', ['2023-01-01 00:00:01','2023-12-31 23:59:59'])->get()->values(); 
 ```
 - use whereRaw()
 ```php
-   Categories::whereRaw('id = 1 and age = 18')->get()->values(); 
+   Categories::instance()->whereRaw('id = 1 and age = 18')->get()->values(); 
 ```
 - use orWhereRaw()
 ```php
-   Categories::where('id', 1)->orWhereRaw('id = 2')->get()->values(); 
+   Categories::instance()->where('id', 1)->orWhereRaw('id = 2')->get()->values(); 
 ```
 - use join
 
 ```php
    // way 1
-   Blog::select('*')->join('categories', function ($q) {
+   Blog::instance()->select('*')->join('categories', function ($q) {
       $q->on('categories.id','=','category_blogs.category_id');
    })->get()->values(); 
    // way 2
-   Blog::select('*')->join('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
+   Blog::instance()->select('*')->join('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
 ```
 
 - use left join
 
 ```php
    // way 1
-   Blog::select('*')->leftJoin('categories', function ($q) {
+   Blog::instance()->select('*')->leftJoin('categories', function ($q) {
       $q->on('categories.id','=','category_blogs.category_id');
    })->get()->values(); 
    // way 2
-   Blog::select('*')->leftJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
+   Blog::instance()->select('*')->leftJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
 ```
 
 
@@ -613,51 +612,51 @@ class Controller extends BaseController {
 
 ```php
    // way 1
-   Blog::select('*')->rightJoin('categories', function ($q) {
+   Blog::instance()->select('*')->rightJoin('categories', function ($q) {
       $q->on('categories.id','=','category_blogs.category_id');
    })->get()->values(); 
    // way 2
-   Blog::select('*')->rightJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
+   Blog::instance()->select('*')->rightJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
 ```
 
 - use order by
 
 ```php
-   News::select('*')->orderBy('id', 'DESC')->get()->values(); // ASC, DESC
+   News::instance()->select('*')->orderBy('id', 'DESC')->get()->values(); // ASC, DESC
 ```
 
 - use group by
 
 ```php
    // way 1
-   News::select('*')->groupBy('id')->get()->values(); 
+   News::instance()->select('*')->groupBy('id')->get()->values(); 
    // way 2
-   News::select('*')->groupBy(['field1','field2','field3'])->get()->values();
+   News::instance()->select('*')->groupBy(['field1','field2','field3'])->get()->values();
 ```
 
 - use limit
 
 ```php
-   News::select('*')->limit(100)->get()->values();
+   News::instance()->select('*')->limit(100)->get()->values();
 ```
 
 - use limit and offset
 
 ```php
-   News::select('*')->page(0)->limit(100)->get()->values(); // offset 0 limit 100
-   News::select('*')->page(1)->limit(100)->get()->values(); // offset 100 limit 100
-   News::select('*')->page(2)->limit(100)->get()->values(); // offset 200 limit 100
+   News::instance()->select('*')->page(0)->limit(100)->get()->values(); // offset 0 limit 100
+   News::instance()->select('*')->page(1)->limit(100)->get()->values(); // offset 100 limit 100
+   News::instance()->select('*')->page(2)->limit(100)->get()->values(); // offset 200 limit 100
 ```
 
 - use insert
 ```php
-   News::insert([
+   News::instance()->insert([
        'name' => 'New',
        'status' => 1
    ]);
        
    // returns id on successful insert
-   News::insertLastId([
+   News::instance()->insertLastId([
        'name' => 'New',
        'status' => 1
    ]);
@@ -667,13 +666,32 @@ class Controller extends BaseController {
 - ```The second parameter in the update function will default to id```
 - ```If you want to use another column, leave it as an array with the column key and value```
 ```php
-   News::update ([
+   News::instance()->update([
        'name' => 'New2',
        'status' => 1
    ], 1); // id
 
    // other key
-   News::update ([
+   News::instance()->update ([
+        'name' => 'New2',
+        'status' => 1
+   ], [
+       'id' => 1,
+       'name' => 'New'
+   ]); // id, name
+```
+
+- use update or insert
+- This function will check to see if the data already exists. If so, update it; if not, insert it
+- ```The second parameter in the updateOrInsert function will default to id```
+- ```If you want to use another column, leave it as an array with the column key and value```
+```php
+   News::instance()->updateOrInsert([
+       'name' => 'New2',
+       'status' => 1
+   ], 1); // id
+// other key
+   News::instance()->updateOrInsert([
         'name' => 'New2',
         'status' => 1
    ], [
@@ -685,8 +703,8 @@ class Controller extends BaseController {
 - Additionally, you can use pure SQL statements with custom functions
 
 ```php
-   News::custom("SELECT * FROM news WHERE id = 1")->get()->values();
-   News::custom("SELECT * FROM news")->get()->values();
+   News::instance()->query("SELECT * FROM news WHERE id = 1")->get()->values();
+   News::instance()->query("SELECT * FROM news")->get()->values();
 ```
 - Or you can use pure SQL statements with the database class like the example below
 ```php
@@ -713,7 +731,7 @@ class News extends Model {
     ];
 
     public static function index(){
-         News::create([
+         News::instance()->create([
              'title' => 'title'
              'name' => 'new',
              'status' => 1,
@@ -734,8 +752,8 @@ use System\Core\Database;
 class HomeController extends BaseController {
    
     public function index(){
-        $all = Database::table('categories')->get()->values();
-        $first = Database::table('categories')->where('id','=',1)->first()->values();
+        $all = Database::instance()->table('categories')->get()->values();
+        $first = Database::instance()->table('categories')->where('id','=',1)->first()->values();
     }
 
 }
@@ -759,7 +777,7 @@ class HomeController extends BaseController {
     public function index(){
        Database::beginTransaction();
        try {
-          Categories::insert(['name' => 'name1']);
+          Categories::instance()->insert(['name' => 'name1']);
           Database::commit();
        }catch (\Exception $e) {
           Database::rollBack();
@@ -784,7 +802,7 @@ class HomeController extends BaseController {
    
     public function index(){
        Database::enableQueryLog();
-       Categories::get()->values();
+       Categories::instance()->get()->values();
        log_debug(Database::getQueryLog());
     }
 }
@@ -806,19 +824,19 @@ class HomeController extends BaseController {
     } 
    
     public function index(){
-       log_debug(Categories::where('id','=',1)->toSqlRaw());
+       log_debug(Categories::instance()->where('id','=',1)->toSqlRaw());
     }
 }
 ```
 - use union
 ```php
-    Categories::union_all(Categories::clone())->get()->values();
+    Categories::instance()->union_all(Categories::clone())->get()->values();
     /*
      * SELECT * FROM categories 
      * UNION ALL
      * SELECT * FROM categories
      * */
-    Categories::union(Categories::clone())->get()->values();
+    Categories::instance()->union(Categories::clone())->get()->values();
     /*
      * SELECT * FROM categories 
      * UNION 
@@ -828,11 +846,11 @@ class HomeController extends BaseController {
 
 - use subQuery
 ```php
-    Categories::subQuery(Categories::clone(), 'sub')->get()->values();
+    Categories::instance()->subQuery(Categories::clone(), 'sub')->get()->values();
     /*
      * SELECT * FROM (SELECT * FROM categories) as sub 
      */
-    Categories::subQuery(Categories::select('id')->clone(), 'sub')->get()->values();
+    Categories::instance()->subQuery(Categories::select('id')->clone(), 'sub')->get()->values();
      /*
      * SELECT * FROM (SELECT id FROM categories) as sub 
      */
@@ -841,12 +859,12 @@ class HomeController extends BaseController {
 - use collection
 - With collections you can use functions ``toArray``, ``toObject``, ``values``, ``value``, ``count``, ``map``, ``filter``, ``push``, ``add`` to manipulate the query builder
 ```php
-    Categories::get()->values(); // get all value
-    Categories::get()->toArray(); // get all value type array
-    Categories::get()->toObject(); // get all value type object
-    Categories::get()->value(); // get first value, use with map and filter functions
-    Categories::get()->count(); // Count the amount of data
-    Categories::get()->map(function ($item) {
+    Categories::instance()->get()->values(); // get all value
+    Categories::instance()->get()->toArray(); // get all value type array
+    Categories::instance()->get()->toObject(); // get all value type object
+    Categories::instance()->get()->value(); // get first value, use with map and filter functions
+    Categories::instance()->get()->count(); // Count the amount of data
+    Categories::instance()->get()->map(function ($item) {
        return $item->id;
     })->values(); // Map the data
     Categories::get()->filter(function ($item) {
@@ -890,7 +908,7 @@ class User extends Model {
 ```
 - Once you have successfully created the association with hasOne then you can call it like the code below
 ```php
-   $email = User::with('email')->find(1)->email; // or
+   $email = User::instance()->with('email')->find(1)->email; // or
    $email = (new User())->email()->find(1)->email;
 ```
 - Now, we will define a relationship on the Email model that will allow us to access the User model. We use hasOne's inverse belongsTo method
@@ -956,7 +974,7 @@ class Comment extends Model {
 ```
 - Once the relationship is defined, we can get the Post model for a Comment by accessing the blog
 ```php
-$blog = Comment::with('blog')->find(1)->blog; // or
+$blog = Comment::instance()->with('blog')->find(1)->blog; // or
 $blog = (new Comment())->blog()->find(1)->blog; 
 ```
 
