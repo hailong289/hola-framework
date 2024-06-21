@@ -74,9 +74,10 @@ class App {
             $this->router = new Router();
             $is_api = (new Request())->isJson();
             $resultHandle = $this->handleUrl();
+            $code = $resultHandle["return"]["code"] ? $resultHandle["return"]["code"]:500;
             if($resultHandle['error_code'] === 0){
                 if(is_array($resultHandle['return']) || is_object($resultHandle['return'])) {
-                    echo json_encode($resultHandle['return']);
+                    Response::json($resultHandle['return'], $code);
                 } elseif (!is_file($resultHandle['return'])) {
                     echo $resultHandle['return'];
                 }
@@ -84,10 +85,9 @@ class App {
             }
             if ($resultHandle['error_code'] === 1) {
                 if($is_api) {
-                    echo json_encode($resultHandle['return']);
-                    exit();
+                    Response::json($resultHandle['return'], $code);
                 }
-                return Response::view($resultHandle['view'], $resultHandle['return']);
+                return Response::view($resultHandle['view'], $resultHandle['return'], $code);
             }
         }catch (\Throwable $e) {
             throw $e;
