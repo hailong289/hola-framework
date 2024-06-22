@@ -75,9 +75,10 @@ class App {
             $is_api = (new Request())->isJson();
             $resultHandle = $this->handleUrl();
             $code = (int)($resultHandle["return"]["code"] ?? 500);
+            http_response_code($code);
             if($resultHandle['error_code'] === 0){
                 if(is_array($resultHandle['return']) || is_object($resultHandle['return'])) {
-                    Response::json($resultHandle['return'], $code);
+                    echo json_encode($resultHandle['return']);
                 } elseif (!is_file($resultHandle['return'])) {
                     echo $resultHandle['return'];
                 }
@@ -85,7 +86,8 @@ class App {
             }
             if ($resultHandle['error_code'] === 1) {
                 if($is_api) {
-                    Response::json($resultHandle['return'], $code);
+                    echo json_encode($resultHandle['return']);
+                    return $this;
                 }
                 return Response::view($resultHandle['view'], $resultHandle['return'], $code);
             }
