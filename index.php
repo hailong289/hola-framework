@@ -19,7 +19,7 @@ try {
         }
     }
     file_put_contents(__DIR__ROOT .'/storage/debug.log',$date . $e . PHP_EOL.PHP_EOL, FILE_APPEND);
-    $code = $code ? $code:500;
+    $code = (int)($code ? $code:500);
     if($is_api) {
         echo Response::json([
             "message" => $e->getMessage(),

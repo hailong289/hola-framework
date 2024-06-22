@@ -74,7 +74,7 @@ class App {
             $this->router = new Router();
             $is_api = (new Request())->isJson();
             $resultHandle = $this->handleUrl();
-            $code = $resultHandle["return"]["code"] ? $resultHandle["return"]["code"]:500;
+            $code = (int)($resultHandle["return"]["code"] ?? 500);
             if($resultHandle['error_code'] === 0){
                 if(is_array($resultHandle['return']) || is_object($resultHandle['return'])) {
                     Response::json($resultHandle['return'], $code);
