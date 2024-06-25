@@ -50,6 +50,8 @@ Router::get('/home/detail/{id}', [HomeController::class,'detail']);
 - The ``add()`` function will identify your path and the ``loadFile()`` function will load the router file you just created
 
 ```php
+use System\Core\ConfigRouter;
+$configRouter = new ConfigRouter();
 $configRouter->add('api')->loadFile('api'); // https://domain.com/api
 $configRouter->add('api_v2')->loadFile('api_v2'); // https://domain.com/api_2
 // or 
@@ -138,7 +140,7 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 - You may not need to declare the 3 variables `$times_auto`, `$date_create`, `$date_update` if you do not use them.
 - Run command create controller
 ```cmd
-- php cli.php create:model NameModel table=name
+- php cli.php create:model NameModel --table=name
 ```
 ```php
 <?php
@@ -180,10 +182,14 @@ class Controller extends BaseController {
         ]);
     }
     public function listCategories(){
-         $data = $this->Categories::get()->values();
+         $data = $this->Categories::instance()->get()->values();
+         // or
+         $data = $this->Categories->get()->values();
     }
     public function listProduct(){
-         $data = $this->Product::get()->values();
+         $data = $this->Product::instance()->get()->values();
+         // or
+         $data = $this->Product->get()->values();
          return $data;
     }
 }
@@ -192,17 +198,12 @@ class Controller extends BaseController {
 ```php
 class Controller extends BaseController {
     public function __construct()
-    {
-        $this->model([
-            Categories::class,
-            Product::class
-        ]);
-    }
+    {}
     public function listCategories(){
-         $data = Categories::get()->values();
+         $data = Categories::instance()->get()->values();
     }
     public function listProduct(){
-         $data = Product::get()->values();
+         $data = Product::instance()->get()->values();
          return $data;
     }
 }
@@ -239,12 +240,13 @@ class Categories extends Model {
 ### Use view
 - Create view in folder app/views with name {name_file}.view.php
 - Use view controller
+
 ```php
 <?php
 namespace App\Controllers;
 use App\Models\Categories;
 use System\Core\BaseController;
-use System\Core\Request;
+use System\Core\Request;use System\Core\Response;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -253,7 +255,30 @@ class HomeController extends BaseController {
     public function index(){
         return $this->render_view('name_file', ["title" => "Home"]);
     }
+    // or
+    public function index2(){
+        return Response::view('name_file', ["title" => "Home"]);
+    }
 }
+```
+- Using the variable in the example view in the code line above to pass the title parameter with the date value, you can declare it as follows
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- use -->
+  <title><?=$title?></title>
+  <!-- or use variable var -->
+  <title><?=@var('title')?></title>
+</head>
+<body>
+
+</body>
+</html>
 ```
 - Run command create view
 ```cmd
@@ -454,42 +479,42 @@ class Controller extends BaseController {
 
 - Get one record in model
 ```php
-   Categories::first()->values();
+   Categories::instance()->first()->values();
 ```
 
 - Get one record buy column with function where
 ```php
-   Categories::where('id','=', 1)->first()->values(); // get by id
-   Categories::where('name','=', 1)->first()->values(); // get by name
-   Categories::where('name','like', '%value%')->first()->values(); // get by name
+   Categories::instance()->where('id','=', 1)->first()->values(); // get by id
+   Categories::instance()->where('name','=', 1)->first()->values(); // get by name
+   Categories::instance()->where('name','like', '%value%')->first()->values(); // get by name
 ```
 - Get all record in model
 ```php
-   Categories::get()->values();
+   Categories::instance()->get()->values();
 ```
 - Get all record buy column with function where
  
   ``The get() function will return an object. If you want to return an array data type, you can use the getArray() function.``
 ```php
-   Categories::where('id','=', 1)->get()->values(); // get by id
-   Categories::where('name','=', 1)->get()->values(); // get by name
-   Categories::where('name','like', '%value%')->get()->values(); // get by name
+   Categories::instance()->where('id','=', 1)->get()->values(); // get by id
+   Categories::instance()->where('name','=', 1)->get()->values(); // get by name
+   Categories::instance()->where('name','like', '%value%')->get()->values(); // get by name
        
    // return data type array
-   Categories::where('id','=', 1)->getArray(); // get by id
-   Categories::where('name','=', 1)->getArray(); // get by name
-   Categories::where('name','like', '%value%')->getArray(); // get by name
+   Categories::instance()->where('id','=', 1)->getArray(); // get by id
+   Categories::instance()->where('name','=', 1)->getArray(); // get by name
+   Categories::instance()->where('name','like', '%value%')->getArray(); // get by name
    // version 1.0.6
-   Categories::where('id','=', 1)->get()->toArray(); // get by id
-   Categories::where('name','=', 1)->get()->toArray(); // get by name
-   Categories::where('name','like', '%value%')->get()->toArray(); // get by name
+   Categories::instance()->where('id','=', 1)->get()->toArray(); // get by id
+   Categories::instance()->where('name','=', 1)->get()->toArray(); // get by name
+   Categories::instance()->where('name','like', '%value%')->get()->toArray(); // get by name
 ```
 ```php
-    $data1 = Categories::select('*')->where(function (Database $q){
+    $data1 = Categories::instance()->select('*')->where(function (Database $q){
         $q->where('id',3)->orWhere('id',2);
     })->get()->toArray();
     
-    $data2 = Categories::select('*')->where(function (Database $q){
+    $data2 = Categories::instance()->select('*')->where(function (Database $q){
         $q->where('id',3);
     })->orWhere(function (Database $q){
         $q->where('id',2);
@@ -497,89 +522,89 @@ class Controller extends BaseController {
 ```
 - use select()
 ```php
-   Categories::select('*')->get()->values();
-   Categories::select(['*'])->get()->values();
-   Categories::select(['id','name'])->get()->values();
+   Categories::instance()->select('*')->get()->values();
+   Categories::instance()->select(['*'])->get()->values();
+   Categories::instance()->select(['id','name'])->get()->values();
 
    // with sum and count 
-   Summary::select([
+   Summary::instance()->select([
        'SUM(amount) as amount',
        'SUM(amount2) as amount2',
    ])->get()->values();
-   Region::select([
+   Region::instance()->select([
        'COUNT(id) as number'
    ])->get()->values();
 ```
 - use findById()
 
 ```php
-   Categories::findById(1); 
+   Categories::instance()->findById(1); 
 ```
 - use orWhere()
 ```php
-   Categories::where('id','=', 1)->orWhere('id','=',2)->get()->values(); 
+   Categories::instance()->where('id','=', 1)->orWhere('id','=',2)->get()->values(); 
 ```
 - use whereLike()
 ```php
-   Categories::whereLike('name', '%long')->get()->values(); 
-   Categories::whereLike('name', 'long%')->get()->values(); 
-   Categories::whereLike('name', '%long%')->get()->values(); 
+   Categories::instance()->whereLike('name', '%long')->get()->values(); 
+   Categories::instance()->whereLike('name', 'long%')->get()->values(); 
+   Categories::instance()->whereLike('name', '%long%')->get()->values(); 
 ```
 
 - use orWhereLike()
 ```php
-   Categories::orWhereLike('name', '%long')->get()->values(); 
-   Categories::orWhereLike('name', 'long%')->get()->values(); 
-   Categories::orWhereLike('name', '%long%')->get()->values(); 
+   Categories::instance()->orWhereLike('name', '%long')->get()->values(); 
+   Categories::instance()->orWhereLike('name', 'long%')->get()->values(); 
+   Categories::instance()->orWhereLike('name', '%long%')->get()->values(); 
 ```
 - use whereIn()
 ```php
-   Categories::whereIn('id', [1,2])->get()->values(); 
+   Categories::instance()->whereIn('id', [1,2])->get()->values(); 
 ```
 - use orWhereIn()
 ```php
-   Categories::orWhereIn('id', [1,2])->get()->values(); 
+   Categories::instance()->orWhereIn('id', [1,2])->get()->values(); 
 ```
 - use whereNotIn()
 ```php
-   Categories::whereNotIn('id', [1,2])->get()->values(); 
+   Categories::instance()->whereNotIn('id', [1,2])->get()->values(); 
 ```
 - use orWhereNotIn()
 ```php
-   Categories::orWhereNotIn('name', [1,2])->get()->values(); 
+   Categories::instance()->orWhereNotIn('name', [1,2])->get()->values(); 
 ```
 - use whereBetween()
 ```php
-   Categories::whereBetween('date', ['2023-01-01 00:00:01','2023-12-31 23:59:59'])->get()->values(); 
+   Categories::instance()->whereBetween('date', ['2023-01-01 00:00:01','2023-12-31 23:59:59'])->get()->values(); 
 ```
 - use whereRaw()
 ```php
-   Categories::whereRaw('id = 1 and age = 18')->get()->values(); 
+   Categories::instance()->whereRaw('id = 1 and age = 18')->get()->values(); 
 ```
 - use orWhereRaw()
 ```php
-   Categories::where('id', 1)->orWhereRaw('id = 2')->get()->values(); 
+   Categories::instance()->where('id', 1)->orWhereRaw('id = 2')->get()->values(); 
 ```
 - use join
 
 ```php
    // way 1
-   Blog::select('*')->join('categories', function ($q) {
+   Blog::instance()->select('*')->join('categories', function ($q) {
       $q->on('categories.id','=','category_blogs.category_id');
    })->get()->values(); 
    // way 2
-   Blog::select('*')->join('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
+   Blog::instance()->select('*')->join('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
 ```
 
 - use left join
 
 ```php
    // way 1
-   Blog::select('*')->leftJoin('categories', function ($q) {
+   Blog::instance()->select('*')->leftJoin('categories', function ($q) {
       $q->on('categories.id','=','category_blogs.category_id');
    })->get()->values(); 
    // way 2
-   Blog::select('*')->leftJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
+   Blog::instance()->select('*')->leftJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
 ```
 
 
@@ -587,51 +612,51 @@ class Controller extends BaseController {
 
 ```php
    // way 1
-   Blog::select('*')->rightJoin('categories', function ($q) {
+   Blog::instance()->select('*')->rightJoin('categories', function ($q) {
       $q->on('categories.id','=','category_blogs.category_id');
    })->get()->values(); 
    // way 2
-   Blog::select('*')->rightJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
+   Blog::instance()->select('*')->rightJoin('categories')->on('categories.id','=','category_blogs.category_id')->get()->values(); 
 ```
 
 - use order by
 
 ```php
-   News::select('*')->orderBy('id', 'DESC')->get()->values(); // ASC, DESC
+   News::instance()->select('*')->orderBy('id', 'DESC')->get()->values(); // ASC, DESC
 ```
 
 - use group by
 
 ```php
    // way 1
-   News::select('*')->groupBy('id')->get()->values(); 
+   News::instance()->select('*')->groupBy('id')->get()->values(); 
    // way 2
-   News::select('*')->groupBy(['field1','field2','field3'])->get()->values();
+   News::instance()->select('*')->groupBy(['field1','field2','field3'])->get()->values();
 ```
 
 - use limit
 
 ```php
-   News::select('*')->limit(100)->get()->values();
+   News::instance()->select('*')->limit(100)->get()->values();
 ```
 
 - use limit and offset
 
 ```php
-   News::select('*')->page(0)->limit(100)->get()->values(); // offset 0 limit 100
-   News::select('*')->page(1)->limit(100)->get()->values(); // offset 100 limit 100
-   News::select('*')->page(2)->limit(100)->get()->values(); // offset 200 limit 100
+   News::instance()->select('*')->page(0)->limit(100)->get()->values(); // offset 0 limit 100
+   News::instance()->select('*')->page(1)->limit(100)->get()->values(); // offset 100 limit 100
+   News::instance()->select('*')->page(2)->limit(100)->get()->values(); // offset 200 limit 100
 ```
 
 - use insert
 ```php
-   News::insert([
+   News::instance()->insert([
        'name' => 'New',
        'status' => 1
    ]);
        
    // returns id on successful insert
-   News::insertLastId([
+   News::instance()->insertLastId([
        'name' => 'New',
        'status' => 1
    ]);
@@ -641,13 +666,32 @@ class Controller extends BaseController {
 - ```The second parameter in the update function will default to id```
 - ```If you want to use another column, leave it as an array with the column key and value```
 ```php
-   News::update ([
+   News::instance()->update([
        'name' => 'New2',
        'status' => 1
    ], 1); // id
 
    // other key
-   News::update ([
+   News::instance()->update ([
+        'name' => 'New2',
+        'status' => 1
+   ], [
+       'id' => 1,
+       'name' => 'New'
+   ]); // id, name
+```
+
+- use update or insert
+- This function will check to see if the data already exists. If so, update it; if not, insert it
+- ```The second parameter in the updateOrInsert function will default to id```
+- ```If you want to use another column, leave it as an array with the column key and value```
+```php
+   News::instance()->updateOrInsert([
+       'name' => 'New2',
+       'status' => 1
+   ], 1); // id
+// other key
+   News::instance()->updateOrInsert([
         'name' => 'New2',
         'status' => 1
    ], [
@@ -659,8 +703,8 @@ class Controller extends BaseController {
 - Additionally, you can use pure SQL statements with custom functions
 
 ```php
-   News::custom("SELECT * FROM news WHERE id = 1")->get()->values();
-   News::custom("SELECT * FROM news")->get()->values();
+   News::instance()->query("SELECT * FROM news WHERE id = 1")->get()->values();
+   News::instance()->query("SELECT * FROM news")->get()->values();
 ```
 - Or you can use pure SQL statements with the database class like the example below
 ```php
@@ -687,7 +731,7 @@ class News extends Model {
     ];
 
     public static function index(){
-         News::create([
+         News::instance()->create([
              'title' => 'title'
              'name' => 'new',
              'status' => 1,
@@ -708,8 +752,8 @@ use System\Core\Database;
 class HomeController extends BaseController {
    
     public function index(){
-        $all = Database::table('categories')->get()->values();
-        $first = Database::table('categories')->where('id','=',1)->first()->values();
+        $all = Database::instance()->table('categories')->get()->values();
+        $first = Database::instance()->table('categories')->where('id','=',1)->first()->values();
     }
 
 }
@@ -733,7 +777,7 @@ class HomeController extends BaseController {
     public function index(){
        Database::beginTransaction();
        try {
-          Categories::insert(['name' => 'name1']);
+          Categories::instance()->insert(['name' => 'name1']);
           Database::commit();
        }catch (\Exception $e) {
           Database::rollBack();
@@ -758,7 +802,7 @@ class HomeController extends BaseController {
    
     public function index(){
        Database::enableQueryLog();
-       Categories::get()->values();
+       Categories::instance()->get()->values();
        log_debug(Database::getQueryLog());
     }
 }
@@ -780,19 +824,19 @@ class HomeController extends BaseController {
     } 
    
     public function index(){
-       log_debug(Categories::where('id','=',1)->toSqlRaw());
+       log_debug(Categories::instance()->where('id','=',1)->toSqlRaw());
     }
 }
 ```
 - use union
 ```php
-    Categories::union_all(Categories::clone())->get()->values();
+    Categories::instance()->union_all(Categories::clone())->get()->values();
     /*
      * SELECT * FROM categories 
      * UNION ALL
      * SELECT * FROM categories
      * */
-    Categories::union(Categories::clone())->get()->values();
+    Categories::instance()->union(Categories::clone())->get()->values();
     /*
      * SELECT * FROM categories 
      * UNION 
@@ -802,11 +846,11 @@ class HomeController extends BaseController {
 
 - use subQuery
 ```php
-    Categories::subQuery(Categories::clone(), 'sub')->get()->values();
+    Categories::instance()->subQuery(Categories::clone(), 'sub')->get()->values();
     /*
      * SELECT * FROM (SELECT * FROM categories) as sub 
      */
-    Categories::subQuery(Categories::select('id')->clone(), 'sub')->get()->values();
+    Categories::instance()->subQuery(Categories::select('id')->clone(), 'sub')->get()->values();
      /*
      * SELECT * FROM (SELECT id FROM categories) as sub 
      */
@@ -815,12 +859,12 @@ class HomeController extends BaseController {
 - use collection
 - With collections you can use functions ``toArray``, ``toObject``, ``values``, ``value``, ``count``, ``map``, ``filter``, ``push``, ``add`` to manipulate the query builder
 ```php
-    Categories::get()->values(); // get all value
-    Categories::get()->toArray(); // get all value type array
-    Categories::get()->toObject(); // get all value type object
-    Categories::get()->value(); // get first value, use with map and filter functions
-    Categories::get()->count(); // Count the amount of data
-    Categories::get()->map(function ($item) {
+    Categories::instance()->get()->values(); // get all value
+    Categories::instance()->get()->toArray(); // get all value type array
+    Categories::instance()->get()->toObject(); // get all value type object
+    Categories::instance()->get()->value(); // get first value, use with map and filter functions
+    Categories::instance()->get()->count(); // Count the amount of data
+    Categories::instance()->get()->map(function ($item) {
        return $item->id;
     })->values(); // Map the data
     Categories::get()->filter(function ($item) {
@@ -833,6 +877,150 @@ class HomeController extends BaseController {
     Categories::get()->filter(function ($item) {
        return $item->id === 1;
     })->value(); // filter data and get one
+```
+
+### Use relation (version v1.0.7)
+- Different types of relationships:
+  + One to One
+  + One to Many
+  + Many to Many
+  
+- Note that when you use relation, you will always have to declare the Relations trait
+** Let's start with the One to One relationship first **
+- A one-to-one relationship is a very basic relationship. For example, a User can be associated with 1 Email. To define this relationship, we place an email method on the User model. The email method should return the result of a hasOne method:
+- The hasOne function will receive parameters. For example, the first parameter is the model call or the name of the table you want to join. The second parameter is the foreign key of the table. The third parameter will be the primary key you want to map with the foreign key.
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class User extends Model {
+    use Relations;
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function email()
+    {
+        return $this->hasOne(Phone::class, 'user_id', 'id');
+    }
+}
+```
+- Once you have successfully created the association with hasOne then you can call it like the code below
+```php
+   $email = User::instance()->with('email')->find(1)->email; // or
+   $email = (new User())->email()->find(1)->email;
+```
+- Now, we will define a relationship on the Email model that will allow us to access the User model. We use hasOne's inverse belongsTo method
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class Email extends Model {
+    use Relations;
+    /**
+     * Get the user that owns the email.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
+    }
+}
+```
+
+** One To Many **
+- A one-to-many relationship is used to define relationships when one model owns multiple quantities of another model. For example, a blog post has many comments. Like many other Eloquent relationships, one-to-many is defined by a function placed on your model:
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class Blog extends Model {
+    use Relations;
+     /**
+     * Get the comments for the blog post.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'blog_id', 'id');
+    }
+}
+```
+- Once the relationship is defined, we can access the comments collection by accessing the comments property as follows
+```php
+$comments = Blog::with('comments')->find(1)->comments; // or
+$comments = (new Blog())->comments()->find(1)->comments; 
+```
+- Now that we can access all comments, let's define a relationship to allow comments to be accessed from a post. To determine the inverse of a hasMany relationship, we use the belongsTo method
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class Comment extends Model {
+    use Relations;
+     /**
+     * Get the post that owns the comment.
+     */
+    public function blog()
+    {
+        return $this->belongsTo(Blog::class, 'id', 'blog_id');
+    }
+}
+```
+- Once the relationship is defined, we can get the Post model for a Comment by accessing the blog
+```php
+$blog = Comment::instance()->with('blog')->find(1)->blog; // or
+$blog = (new Comment())->blog()->find(1)->blog; 
+```
+
+** Many To Many **
+- many-to-many, a slightly more complex relationship than hasOne and hasMany. An example of this relationship is that 1 user will have many roles and 1 role will also belong to many users. To define this relationship, it is necessary to have 3 tables: users, roles and user_role. The user_role table will contain 2 columns user_id and role_id.
+- A many-to-many relationship is defined by calling the belongsToMany or manyToMany based method. For example, let's define the roles method on the User model.
+```php
+<?php
+namespace App\Models;
+use System\Core\Model;
+use System\Traits\Relations;
+
+class User extends Model {
+    use Relations;
+     /**
+     * The roles that belong to the user.
+     */
+    public function role()
+    {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id', 'id');
+    }
+    // way two
+    public function role()
+    {
+        return $this->manyToMany(Role::class, 'user_role', 'user_id', 'role_id', 'id');
+    }
+}
+```
+- For example
+```php
+$roles = User::with('role')->find(1)->role; // or
+$roles = (new User())->role()->find(1)->role; 
+```
+
+- Additionally, you can use the query builder inside the with function as in the example below 
+- The syntax below will get the id, title for blogs with views greater than 0 in category 6
+```php 
+  $query = Categories::with(['blog' => function ($query) {
+      return $query->select('id, title')->where('view','>',0);
+  }])->find(6)->value(); 
+```
+
+- Use count and sum
+```php
+$sum = Categories::sum('view')->values();
+$count = Categories::count('id')->values();
 ```
 
 - use collection with array
@@ -1067,7 +1255,7 @@ class Job1 {
 - Create queue job with command
 
 ```cmd
-php cli.php create:queue_job SendEmail
+php cli.php create:jobs SendEmail
 ```
 - Used in controllers
 
@@ -1091,17 +1279,54 @@ class HomeController extends BaseController {
 
 }
 ```
+- You can change the connection with the connection function see the code below
+
+```php 
+<?php
+namespace App\Controllers;
+use System\Core\BaseController;
+use System\Core\Request;
+use System\Core\Response;
+use System\Queue\CreateQueue;
+use System\Queue\Job1;
+
+class HomeController extends BaseController {
+    public function __construct()
+    {}
+
+    public function index(Request $request){
+        (new CreateQueue())->connection('redis')->enQueue(new Job1(5,6));
+        (new CreateQueue())->connection('database')->enQueue(new Job1(5,6));
+        return Response::view('welcome');
+    }
+
+}
+```
+```cmd
+// run queue connection
+ - php cli.php queue:run redis
+ - php cli.php queue:run database
+```
+- We have defaulted the queue name to jobs. If you want to change it, you can use the setQueue function
+```php
+ (new CreateQueue())->setQueue('name_queue1')->enQueue(new Job1(5,6));
+ (new CreateQueue())->setQueue('name_queue2')->enQueue(new Job1(5,6));
+ // run queue name
+ - php cli.php queue:run --queue=name_queue1
+ - php cli.php queue:run --queue=name_queue2
+```
+- Currently jobs have a running time of about 10 minutes, you can also change the QUEUE_TIMEOUT constant in the constants.php file
+- Additionally, if you do not want to set independent time for each job, you can use the setTimeOut function
+```php
+    (new CreateQueue())->setTimeOut(100)->enQueue(new Job1(5,6));
+```
 - Run job queue
 ```cmd
- - php cli.php run:queue work
- // or
- - php cli.php run:queue live
+ - php cli.php queue:run
 ```
 - There are jobs that may have errors, you can run them again with the command below
 ```cmd
- - php cli.php run:queue work rollback_failed_job
- // or
- - php cli.php run:queue live rollback_failed_job
+ - php cli.php queue:run --queue=rollback_failed_job
 ```
 
 - using queue with database you will create 2 tables below
@@ -1113,7 +1338,9 @@ class HomeController extends BaseController {
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `queue` varchar(255) DEFAULT 'jobs',
+  `exception` text DEFAULT NULL,
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -1128,7 +1355,8 @@ CREATE TABLE `failed_jobs`  (
 DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `queue` varchar(255) DEFAULT 'jobs',
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -1250,5 +1478,101 @@ class HomeController extends BaseController {
         }
     }
 
+}
+```
+- In version v1.0.7 you can create a class to send separate mail with the command below
+```cmd
+php cli.php create:mail name_mail_class
+```
+- The file structure will look like this
+```php 
+<?php
+namespace Mails;
+use System\Core\Mail;
+class DefaultMail extends Mail {
+    protected $useQueue = false;
+    public function __construct()
+    {
+        parent::__construct();
+    }
+   
+    public function handle()
+    {
+         echo "send mail";
+    }
+
+}
+```
+- If the variable $useQueue is false, when you call the mail class it will be executed immediately. If $useQueue is true, it will be pushed into the queue.
+- Note that when using the product, you will use the code below
+```php 
+(new CreateQueue())->enQueue(new DefaultMail()); // use queue
+(new DefaultMail()); // not use queue
+```
+### Command
+- To start using the command, run the command below to create a command
+- For example, here I will create a command with the name Test1
+- ``php cli.php create:command Test1``
+- The variable $command is the command you will run for example ``php cli.php run:command_test``
+- The variable $command_description is the command title of a command
+- The $arguments variable is the parameters you want to pass for example ``php cli.php run:command_test name``
+- The $options variable is the options as in the example``php cli.php run:command_test name --options1=1 --options2=234``
+```php
+<?php
+namespace Commands;
+use System\Core\Command;
+
+class Test2Command extends Command {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    protected $command = 'run:command_test';
+    protected $command_description = 'A command to run';
+    protected $arguments = ['username'];
+    protected $options = ['options1', 'options2];
+
+    public function handle()
+    {
+        $groups = [1,2,3,4,5];
+        $progressBar = $this->createProgressBar(count($groups));
+        echo $this->getArgument('username');
+        $progressBar->start();
+        foreach ($groups as $group)
+        {
+            sleep(2);
+            $progressBar->advance();
+        }
+        $progressBar->finish();
+        $this->output()->text('success');
+    }
+}
+```
+- By default $arguments will be mandatory. If you do not want it to be mandatory, you can declare it as below
+```php
+  protected $arguments = ['?username','?password'];
+```
+- By default $options will be mandatory. If you do not want it required, you can declare it as below
+```php
+  protected $options = ['?group1','?group2'];
+```
+- If you do not want to use arguments and options, you may not need to declare them in the command, for example:
+```php
+<?php
+namespace Commands;
+use System\Core\Command;
+
+class Test2Command extends Command {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    protected $command = 'run:command_test';
+    protected $command_description = 'A command to run';
+
+    public function handle()
+    {
+        $this->output()->text('success');
+    }
 }
 ```

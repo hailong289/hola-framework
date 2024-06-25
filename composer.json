@@ -14,18 +14,26 @@
     "psr-4": {
       "App\\": "App/",
       "Queue\\Jobs\\": "queue/",
-      "Request\\": "Request/"
+      "Request\\": "request/",
+      "Commands\\": "commands/",
+      "Mails\\": "mails/",
+      "Middleware\\": "middleware/"
     },
     "classmap": [
       "App/",
       "queue/",
-      "Request/"
+      "request/",
+      "commands/",
+      "mails/",
+      "middleware/"
     ]
+  },
+  "config": {
+    "platform-check": false
   },
   "require": {
     "php": ">=7.4",
-    "longdhdev/holaframework": "v1.0.6",
-    "phpmailer/phpmailer": "v6.9.1"
+    "longdhdev/holaframework": "v1.0.7"
   },
   "minimum-stability": "dev",
   "prefer-stable" : true,

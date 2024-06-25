@@ -19,16 +19,15 @@ try {
         }
     }
     file_put_contents(__DIR__ROOT .'/storage/debug.log',$date . $e . PHP_EOL.PHP_EOL, FILE_APPEND);
-    http_response_code($code ? $code:500);
+    $code = (int)($code ? $code:500);
     if($is_api) {
-        echo json_encode([
+        echo Response::json([
             "message" => $e->getMessage(),
             "code" => $code,
             "line" => $e->getLine(),
             "file" => $e->getFile(),
             "trace" => $e->getTraceAsString()
-        ]);
-        exit();
+        ], $code);
     }
     return Response::view("error.index", [
         "message" => $e->getMessage(),
@@ -36,5 +35,5 @@ try {
         "line" => $e->getLine(),
         "file" => $e->getFile(),
         "trace" => $e->getTraceAsString()
-    ]);
+    ], $code);
 }
