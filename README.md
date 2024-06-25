@@ -879,7 +879,7 @@ class HomeController extends BaseController {
     })->value(); // filter data and get one
 ```
 
-### Use relation (version v1.0.2)
+### Use relation (version v1.0.7)
 - Different types of relationships:
   + One to One
   + One to Many
@@ -1480,7 +1480,7 @@ class HomeController extends BaseController {
 
 }
 ```
-- In version v1.0.2 you can create a class to send separate mail with the command below
+- In version v1.0.7 you can create a class to send separate mail with the command below
 ```cmd
 php cli.php create:mail name_mail_class
 ```
