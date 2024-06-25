@@ -1,5 +1,5 @@
 <?php
-namespace System\Middleware;
+namespace Middleware;
 use System\Core\Request;
 
 class AuthMiddleware {
