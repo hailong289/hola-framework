@@ -1,38 +1,53 @@
 <?php
-define('URL_PATH', 'http://localhost');
-define('CONNECT_REDIS', false); // coming soon
-define('DEBUG_LOG', true);
-define('LANGUAGE', 'vi');
-define('TIMEZONE', 'Asia/Ho_Chi_Minh');
+const URL_PATH = 'http://localhost';
+const DEBUG_LOG = true;
+const LANGUAGE = 'vi';
+const TIMEZONE = 'Asia/Ho_Chi_Minh';
 
 // connection db
-define('DB_ENVIRONMENT', 'default'); // environment
-define('DB_CONNECTION', 'mysql'); // chỉ hỗ trợ mysql, pgsql
-define('DB_HOST', '127.0.0.1');
-define('DB_PORT', '3306');
-define('DB_NAME', 'blog');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+const DB_ENVIRONMENT = 'default';
+const DB_CONNECTION = 'mysql';
+const DB_HOST = '127.0.0.1';
+const DB_PORT = '3306';
+const DB_NAME = 'blog';
+const DB_USERNAME = 'root';
+const DB_PASSWORD = '';
 // redis
-define('REDIS_CONNECTION', 'redis');
-define('REDIS_HOST', '127.0.0.1');
-define('REDIS_PORT', '6379');
-define('REDIS_USER', 'default');
-define('REDIS_PASSWORD', null);
+const REDIS_CONNECTION = 'redis';
+const REDIS_HOST = '127.0.0.1';
+const REDIS_PORT = '6379';
+const REDIS_USER = 'default';
+const REDIS_PASSWORD = null;
 // end db
 
+// Rabbit MQ
+const RABBITMQ_HOST = '127.0.0.1';
+const RABBITMQ_VHOST = '/';
+const RABBITMQ_PORT = '5671';
+const RABBITMQ_USER = 'guest';
+const RABBITMQ_PASSWORD = 'guest';
+const RABBITMQ_SCHEME = '';
+const RABBITMQ_OPTIONS = [
+    'cafile' => null,
+    'local_cert' =>null,
+    'local_key' => null,
+    'verify_peer' => false,
+    'passphrase' => null,
+];
+// end Rabbit MQ
+
 // queue
-define('QUEUE_WORK', 'redis'); // use database or redis
-define('QUEUE_TIMEOUT', '600'); // default timeout 10 minutes
+const QUEUE_WORK = 'rabbitMQ'; // use database or redis or rabbitMQ
+const QUEUE_TIMEOUT = 600; // default timeout 10 minutes
 
 // mail
-define('MAIL_CONNECTION', 'smtp');
-define('MAIL_HOST', 'smtp.gmail.com');
-define('MAIL_PORT', 465);
-define('MAIL_USERNAME', 'username@gmail.com');
-define('MAIL_PASSWORD', 'password');
-define('MAIL_ENCRYPTION', 'ssl');
-define('MAIL_DEBUG', 0);
+const MAIL_CONNECTION = 'smtp';
+const MAIL_HOST = 'smtp.gmail.com';
+const MAIL_PORT = '465';
+const MAIL_USERNAME = 'username@gmail.com';
+const MAIL_PASSWORD = 'password';
+const MAIL_ENCRYPTION = 'ssl';
+const MAIL_DEBUG = 0;
 //(0) No debug output, default
 //(1) Client commands
 //(2) Client commands and server responses
