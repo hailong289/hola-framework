@@ -53,7 +53,10 @@ class App {
         }catch (\Throwable $e){
             $code = (int)$e->getCode();
             $code = $code ? $code : 500;
-            if (DEBUG_LOG) $this->write_logs_error($e);
+            $enable_db = config_env('DEBUG_LOG',false);
+            if ($enable_db) {
+                $this->write_logs_error($e);
+            }
             http_response_code($code);
             return [
                 "error_code" => 1,

@@ -1,6 +1,7 @@
 <?php
 const URL_PATH = 'http://localhost';
 const DEBUG_LOG = true;
+const DEBUG_LOG_CONNECTION = false;
 const LANGUAGE = 'vi';
 const TIMEZONE = 'Asia/Ho_Chi_Minh';
 

@@ -11,6 +11,27 @@ composer create-project longdhdev/project_holaframework
 composer install
 ```
 
+## List
+
+- [Router](#Router)
+- [App](#App)
+- [Controller](#Use-controller)
+- [Model](#Use-model)
+- [View](#Use-view)
+- [Middleware](#Use-middleware)
+- [Request](#Use-Request)
+- [Validate request](#Use-validate-request)
+- [Rules](#Rules-can-be-used)
+- [Response](#Use-response)
+- [Query Builder](#Query-Builder)
+- [Relation](#Use-relation)
+- [Shared function](#Use-function)
+- [Translate](#Use-translate)
+- [Queue](#Queue)
+- [Mail](#Mail)
+- [Command](#Command)
+
+
 ## Router 
 - Set up in router/web.php 
 - Router will receive 2 parameters, 1st parameter will be url, 2nd parameter will be array including controller and function in controller
@@ -425,6 +446,67 @@ class HomeController extends BaseController {
 
 }
 ```
+### Use Form Request
+- Command create form request
+```cmd
+ php cli.php create:request name
+```
+- When you run the command, it will gender a file {name} in the request folder. In this file, you can validate it
+
+```php
+<?php
+namespace Request;
+use System\Core\FormRequest;
+
+class AuthRequest extends FormRequest
+{
+    public function __construct() {
+        parent::__construct();
+    }
+
+    public function auth() {
+        return true;
+    }
+
+    public function rules()
+    {
+        return [
+            'username' => [
+               'required'=>'Không để trống',
+               'number',
+            ],
+            'password' => [
+                'required',
+                'number',
+                'max:6' => 'Pass phải lớn hơn hoặc bằng {{password}}',
+                'min:6'
+            ],
+        ];
+    }
+
+    /**
+     * @return string
+     * This function you can return view as you want, this function can be declared or not needed
+     * If you want to use this function, you must declare the auth function first
+     */
+    public function view_auth() {
+        return 'error.index';
+    }
+
+    /**
+     * @return array
+     * This function you can return data as you want, this function can be declared or not needed
+     * If you want to use this function, you must declare the auth function first
+     */
+    public function data_auth() {
+        return [
+            'message' => 'unauthorized',
+            'code' => 403
+        ];
+    }
+}
+```
+
 #### Rules can be used
 
 - ``required`` // check empty
@@ -857,7 +939,7 @@ class HomeController extends BaseController {
 ```
 
 - use collection
-- With collections you can use functions ``toArray``, ``toObject``, ``values``, ``value``, ``count``, ``map``, ``filter``, ``push``, ``add`` to manipulate the query builder
+- With collections you can use functions ``toArray``, ``toObject``, ``values``, ``value``, ``count``, ``map``, ``filter``, ``push``, ``add``, ``chunk`` to manipulate the query builder
 ```php
     Categories::instance()->get()->values(); // get all value
     Categories::instance()->get()->toArray(); // get all value type array
@@ -877,9 +959,16 @@ class HomeController extends BaseController {
     Categories::get()->filter(function ($item) {
        return $item->id === 1;
     })->value(); // filter data and get one
+    
+    // use chunk
+    Categories::get()->chunk(3, function ($items) {
+         foreach ($items as $item) {
+            echo $item;
+         }
+    });
 ```
 
-### Use relation (version v1.0.7)
+### Use relation
 - Different types of relationships:
   + One to One
   + One to Many
@@ -1012,9 +1101,17 @@ $roles = (new User())->role()->find(1)->role;
 - Additionally, you can use the query builder inside the with function as in the example below 
 - The syntax below will get the id, title for blogs with views greater than 0 in category 6
 ```php 
+<?php
   $query = Categories::with(['blog' => function ($query) {
       return $query->select('id, title')->where('view','>',0);
   }])->find(6)->value(); 
+```
+- By default, the relationships will follow the whereIn conditions with 1 query. If you want to change if you want to query n + 1, you can change it like the code line below.
+- Setting the second parameter in the with function to true will result in query n + 1
+- 
+```php 
+<?php
+  $query = Categories::with(['blog'], true)->find(6)->value(); 
 ```
 
 - Use count and sum
@@ -1047,6 +1144,12 @@ $count = Categories::count('id')->values();
     $data->filter(function ($item) {
        return $item->id === 1;
     })->value(); // filter data and get one
+    // use chunk
+    $data->chunk(3, function ($items) {
+         foreach ($items as $item) {
+            echo $item;
+         }
+    });
 ```
 ### Use middleware
 - The middleware will be the place to check whether the request goes forward to be processed or not. It will often be used to authenticate the user and many other things depending on how you write the code in the middleware.
@@ -1491,6 +1594,7 @@ namespace Mails;
 use System\Core\Mail;
 class DefaultMail extends Mail {
     protected $useQueue = false;
+    
     public function __construct()
     {
         parent::__construct();
@@ -1575,4 +1679,8 @@ class Test2Command extends Command {
         $this->output()->text('success');
     }
 }
+```
+- command clear cache router and config 
+```cmd
+   php cli.php clear:cache
 ```
