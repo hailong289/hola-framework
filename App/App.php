@@ -17,7 +17,16 @@ class App {
             if (!empty($urlarr[0])) {
                 $this->__controller = $urlarr[0];
                 if (class_exists($this->__controller)) {
-                    $this->__controller = new $this->__controller();
+                    $__controller = new \ReflectionClass($this->__controller);
+                    $params = $__controller->getConstructor()->getParameters();
+                    $agr = [];
+                    foreach ($params AS $param) {
+                        $class = $param->getClass()->name;
+                        if (!empty($class)) {
+                            array_push($agr, new $class());
+                        }
+                    }
+                    $this->__controller = new $this->__controller(...$agr);
                 } else {
                     throw new \RuntimeException("{$this->__controller} does not exit", 500);
                 }
@@ -36,7 +45,9 @@ class App {
                 $agr = [];
                 foreach ($method->getParameters() as $ag){
                     $class = $ag->getClass()->name;
-                    if(!empty($class)) array_push($agr, new $class());
+                    if (!empty($class)) {
+                        array_push($agr, new $class());
+                    }
                 }
                 foreach ($this->__param as $value) {
                     array_push($agr, $value);
