@@ -68,7 +68,6 @@ class App {
             if ($enable_db) {
                 $this->write_logs_error($e);
             }
-            http_response_code($code);
             return [
                 "error_code" => 1,
                 "return" => [
@@ -88,18 +87,19 @@ class App {
             $this->router = new Router();
             $is_api = (new Request())->isJson();
             $resultHandle = $this->handleUrl();
-            $code = (int)($resultHandle["return"]["code"] ?? 500);
-            http_response_code($code);
             if($resultHandle['error_code'] === 0){
                 if(is_array($resultHandle['return']) || is_object($resultHandle['return'])) {
                     echo json_encode($resultHandle['return']);
                 } elseif (!is_file($resultHandle['return'])) {
+                    http_response_code(200);
                     echo $resultHandle['return'];
                 }
                 return $this;
             }
             if ($resultHandle['error_code'] === 1) {
+                $code = (int)($resultHandle["return"]["code"] ?? 500);
                 if($is_api) {
+                    http_response_code($code);
                     echo json_encode($resultHandle['return']);
                     return $this;
                 }
