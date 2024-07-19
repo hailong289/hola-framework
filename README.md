@@ -11,6 +11,17 @@ composer create-project longdhdev/project_holaframework
 composer install
 ```
 
+## What new in version v1.0.8
+- Add router cache and connection configuration
+- Add file cache function
+- Model improvements 
+- Add connection rabbitmq and queue rabbitmq
+- Fixes FormRequest
+- Fixes Validation
+- Add the n + 1 query condition in the with function and improve the query relation
+- Add softDelete, pagination, paginationWithCount functions in the query builder
+- Refactor functions in index, boostrap, App 
+
 ## List
 
 - [Router](#Router)
@@ -733,13 +744,13 @@ class Controller extends BaseController {
 - use insert
 ```php
    News::instance()->insert([
-       'name' => 'New',
+       'name' => 'Test',
        'status' => 1
    ]);
        
    // returns id on successful insert
    News::instance()->insertLastId([
-       'name' => 'New',
+       'name' => 'Test',
        'status' => 1
    ]);
 ```
@@ -759,7 +770,7 @@ class Controller extends BaseController {
         'status' => 1
    ], [
        'id' => 1,
-       'name' => 'New'
+       'name' => 'Test'
    ]); // id, name
 ```
 
@@ -778,7 +789,7 @@ class Controller extends BaseController {
         'status' => 1
    ], [
        'id' => 1,
-       'name' => 'New'
+       'name' => 'Test'
    ]); // id, name
 ```
 
