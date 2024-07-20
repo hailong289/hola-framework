@@ -1,27 +1,46 @@
 <?php
 ini_set('error_reporting', E_STRICT);
+/**
+* set __DIR__ROOT
+**/
+
 define('__DIR__ROOT', __DIR__);
 
-// auto load file
-$config_dir = glob('config/*.php');
-if (!empty($config_dir)) {
-    foreach($config_dir as $item){
-        if(file_exists(path_root($item))){
-            require_once path_root($item);
-        }
-    }
-}
+/**
+ * Initialize the load registration function
+ **/
 
-$language = glob('language/*.php');
-if (!empty($language)) {
-    foreach($language as $item){
-        if(file_exists(path_root($item))){
-            if($item === "language/".LANGUAGE.".php") {
-                $GLOBALS['data_lang'] = require(path_root($item));
-            }
-        }
-    }
-}
+$appRegister = new \System\Core\RegisterLoad();
 
-require_once 'router/index.php';
-require_once 'App/App.php';
+/**
+ *  Load the configs
+ *  or folders that you create in the project
+ **/
+$appRegister->registerFolder([
+    'config'
+]);
+
+/**
+ *  Register session
+ *  If you want to use session then open this code
+ */
+
+//  $appRegister->registerSession();
+
+/**
+ *  Load the language
+ *   If you do not want to default load using LANGUAGE constant in configs/constant.php
+ *   then you can pass parameters to the languageLoad function below. For example:
+ *   languageLoad('vi') or languageLoad('en')
+ **/
+$appRegister->languageLoad();
+
+/**
+ *  Load the router
+ **/
+$appRegister->routerWorkLoad();
+
+/**
+ *  Initialize app
+ **/
+$appRegister->initApp();
