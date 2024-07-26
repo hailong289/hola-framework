@@ -1,8 +1,8 @@
 <?php
 namespace App;
-use System\Core\Request;
-use System\Core\Response;
-use System\Core\Router;
+use Hola\Core\Request;
+use Hola\Core\Response;
+use Hola\Core\Router;
 
 class App {
     private $__controller;

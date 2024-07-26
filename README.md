@@ -48,7 +48,7 @@ composer install
 - Router will receive 2 parameters, 1st parameter will be url, 2nd parameter will be array including controller and function in controller
 
 ```php
-use System\Core\Router;
+use Hola\Core\Router;
 use App\Controllers\HomeController;
 
 Router::get('/', [HomeController::class,'index']);
@@ -56,7 +56,7 @@ Router::get('/home', [HomeController::class,'index']);
 ```
 - Use parameters
 ```php
-use System\Core\Router;
+use Hola\Core\Router;
 use App\Controllers\HomeController;
 
 // url {domain}/home/1
@@ -82,7 +82,7 @@ Router::get('/home/detail/{id}', [HomeController::class,'detail']);
 - The ``add()`` function will identify your path and the ``loadFile()`` function will load the router file you just created
 
 ```php
-use System\Core\ConfigRouter;
+use Hola\Core\ConfigRouter;
 $configRouter = new ConfigRouter();
 $configRouter->add('api')->loadFile('api'); // https://domain.com/api
 $configRouter->add('api_v2')->loadFile('api_v2'); // https://domain.com/api_2
@@ -113,7 +113,7 @@ class HomeController extends BaseController {
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\Request;
+use Hola\Core\Request;
 
 class HomeController extends BaseController {
     public function index(Request $request, $id){
@@ -137,7 +137,7 @@ class HomeController extends BaseController {
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
+use Hola\Core\BaseController;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -177,7 +177,7 @@ File in folder app/Controllers/{name_folder} -> namespace App\Controllers\{name_
 ```php
 <?php
 namespace App\Models;
-use System\Core\Model;
+use Hola\Core\Model;
 
 class Categories extends Model {
     protected static $tableName = 'categories';
@@ -245,8 +245,8 @@ Use attribute in module
 - Example code below:
 ```php
 namespace App\Models;
-use System\Core\Database;
-use System\Core\Model;
+use Hola\Core\Database;
+use Hola\Core\Model;
 
 class Categories extends Model {
     protected static $tableName = 'categories';
@@ -277,8 +277,9 @@ class Categories extends Model {
 <?php
 namespace App\Controllers;
 use App\Models\Categories;
-use System\Core\BaseController;
-use System\Core\Request;use System\Core\Response;
+use Hola\Core\BaseController;
+use Hola\Core\Request;
+use Hola\Core\Response;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -321,7 +322,7 @@ class HomeController extends BaseController {
 
 ### Use Request
 ```php
-use System\Core\Request;
+use Hola\Core\Request;
 class Controller extends BaseController {
     public function __construct()
     {}
@@ -420,10 +421,10 @@ Use ``validateRequest`` in controller. This ``validateRequest`` function will re
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Request;
-use System\Core\Response;
-use System\Core\Validation;
+use Hola\Core\BaseController;
+use Hola\Core\Request;
+use Hola\Core\Response;
+use Hola\Core\Validation;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -467,7 +468,7 @@ class HomeController extends BaseController {
 ```php
 <?php
 namespace Request;
-use System\Core\FormRequest;
+use Hola\Core\FormRequest;
 
 class AuthRequest extends FormRequest
 {
@@ -532,7 +533,7 @@ class AuthRequest extends FormRequest
 ### Use response
 
 ```php
-use System\Core\Response;
+use Hola\Core\Response;
 class Controller extends BaseController {
     public function __construct()
     {}
@@ -811,8 +812,8 @@ class Controller extends BaseController {
 ```php
 <?php
 namespace App\Models;
-use System\Core\Database;
-use System\Core\Model;
+use Hola\Core\Database;
+use Hola\Core\Model;
 
 class News extends Model {
     protected static $tableName = 'new';
@@ -839,8 +840,8 @@ class News extends Model {
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Database;
+use Hola\Core\BaseController;
+use Hola\Core\Database;
 
 class HomeController extends BaseController {
    
@@ -857,8 +858,8 @@ class HomeController extends BaseController {
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Database;
+use Hola\Core\BaseController;
+use Hola\Core\Database;
 use App\Models\Categories;
 
 class HomeController extends BaseController {
@@ -883,8 +884,8 @@ class HomeController extends BaseController {
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Database;
+use Hola\Core\BaseController;
+use Hola\Core\Database;
 use App\Models\Categories;
 
 class HomeController extends BaseController {
@@ -906,8 +907,8 @@ class HomeController extends BaseController {
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Database;
+use Hola\Core\BaseController;
+use Hola\Core\Database;
 use App\Models\Categories;
 
 class HomeController extends BaseController {
@@ -992,8 +993,8 @@ class HomeController extends BaseController {
 ```php
 <?php
 namespace App\Models;
-use System\Core\Model;
-use System\Traits\Relations;
+use Hola\Core\Model;
+use Hola\Traits\Relations;
 
 class User extends Model {
     use Relations;
@@ -1015,8 +1016,8 @@ class User extends Model {
 ```php
 <?php
 namespace App\Models;
-use System\Core\Model;
-use System\Traits\Relations;
+use Hola\Core\Model;
+use Hola\Traits\Relations;
 
 class Email extends Model {
     use Relations;
@@ -1035,8 +1036,8 @@ class Email extends Model {
 ```php
 <?php
 namespace App\Models;
-use System\Core\Model;
-use System\Traits\Relations;
+use Hola\Core\Model;
+use Hola\Traits\Relations;
 
 class Blog extends Model {
     use Relations;
@@ -1058,8 +1059,8 @@ $comments = (new Blog())->comments()->find(1)->comments;
 ```php
 <?php
 namespace App\Models;
-use System\Core\Model;
-use System\Traits\Relations;
+use Hola\Core\Model;
+use Hola\Traits\Relations;
 
 class Comment extends Model {
     use Relations;
@@ -1084,8 +1085,8 @@ $blog = (new Comment())->blog()->find(1)->blog;
 ```php
 <?php
 namespace App\Models;
-use System\Core\Model;
-use System\Traits\Relations;
+use Hola\Core\Model;
+use Hola\Traits\Relations;
 
 class User extends Model {
     use Relations;
@@ -1137,7 +1138,7 @@ $count = Categories::count('id')->values();
        ["id" => 1, "name" => "Name 1"],
        ["id" => 2, "name" => "Name 2"],
     ];
-    $data = new \System\Core\Collection($array);
+    $data = new \Hola\Core\Collection($array);
     $data->values(); // get all value
     $data->toArray(); // get all value type array
     $data->toObject(); // get all value type object
@@ -1173,11 +1174,11 @@ php cli.php create:middleware NameMiddleware
 === way 1 ===
 ```php
 <?php
-namespace System\Middleware;
+namespace Hola\Middleware;
 
-use System\Core\Response;
-use System\Core\Session;
-use System\Core\Request;
+use Hola\Core\Response;
+use Hola\Core\Session;
+use Hola\Core\Request;
 
 class Auth {
     // return with key error code in function
@@ -1192,11 +1193,11 @@ class Auth {
 === way 2 ===
 ```php
 <?php
-namespace System\Middleware;
+namespace Hola\Middleware;
 
-use System\Core\Response;
-use System\Core\Session;
-use System\Core\Request;
+use Hola\Core\Response;
+use Hola\Core\Session;
+use Hola\Core\Request;
 
 class Auth {
     // return with key error code in function
@@ -1216,11 +1217,11 @@ class Auth {
 === way 3 ===
 ```php
 <?php
-namespace System\Middleware;
+namespace Hola\Middleware;
 
-use System\Core\Response;
-use System\Core\Session;
-use System\Core\Request;
+use Hola\Core\Response;
+use Hola\Core\Session;
+use Hola\Core\Request;
 
 class Auth {
     // return boolean in function
@@ -1235,10 +1236,10 @@ class Auth {
 - Declare the middleware name in the Kernel.php file located in the middleware folder
 ```php
 <?php
-namespace System\Middleware;
+namespace Hola\Middleware;
 class Kernel {
     public $routerMiddleware = [
-        "auth" => \System\Middleware\Auth::class,
+        "auth" => \Hola\Middleware\Auth::class,
     ];
 }
 ```
@@ -1376,11 +1377,11 @@ php cli.php create:jobs SendEmail
 ```php 
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Request;
-use System\Core\Response;
-use System\Queue\CreateQueue;
-use System\Queue\Job1;
+use Hola\Core\BaseController;
+use Hola\Core\Request;
+use Hola\Core\Response;
+use Hola\Queue\CreateQueue;
+use Hola\Queue\Job1;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -1398,11 +1399,11 @@ class HomeController extends BaseController {
 ```php 
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Request;
-use System\Core\Response;
-use System\Queue\CreateQueue;
-use System\Queue\Job1;
+use Hola\Core\BaseController;
+use Hola\Core\Request;
+use Hola\Core\Response;
+use Hola\Queue\CreateQueue;
+use Hola\Queue\Job1;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -1425,7 +1426,7 @@ class HomeController extends BaseController {
 ```php
  (new CreateQueue())->setQueue('name_queue1')->enQueue(new Job1(5,6));
  (new CreateQueue())->setQueue('name_queue2')->enQueue(new Job1(5,6));
- // run queue name
+ // run Queue name
  - php cli.php queue:run --queue=name_queue1
  - php cli.php queue:run --queue=name_queue2
 ```
@@ -1497,8 +1498,8 @@ define('MAIL_DEBUG', 0);
 ```php 
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Mail;
+use Hola\Core\BaseController;
+use Hola\Core\Mail;
 
 class HomeController extends BaseController {
     public function __construct()
@@ -1553,8 +1554,8 @@ HTML;
 ```php
 <?php
 namespace App\Controllers;
-use System\Core\BaseController;
-use System\Core\Mail;
+use Hola\Core\BaseController;
+use Hola\Core\Mail;
 class HomeController extends BaseController {
     public function __construct()
     {}
@@ -1602,7 +1603,7 @@ php cli.php create:mail name_mail_class
 ```php 
 <?php
 namespace Mails;
-use System\Core\Mail;
+use Hola\Core\Mail;
 class DefaultMail extends Mail {
     protected $useQueue = false;
     
@@ -1635,7 +1636,7 @@ class DefaultMail extends Mail {
 ```php
 <?php
 namespace Commands;
-use System\Core\Command;
+use Hola\Core\Command;
 
 class Test2Command extends Command {
     public function __construct()
@@ -1675,7 +1676,7 @@ class Test2Command extends Command {
 ```php
 <?php
 namespace Commands;
-use System\Core\Command;
+use Hola\Core\Command;
 
 class Test2Command extends Command {
     public function __construct()

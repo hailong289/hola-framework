@@ -37,8 +37,8 @@ const RABBITMQ_OPTIONS = [
 ];
 // end Rabbit MQ
 
-// queue
-const QUEUE_WORK = 'rabbitMQ'; // use database or redis or rabbitMQ
+// Queue
+const QUEUE_WORK = 'database'; // use database or redis or rabbitMQ
 const QUEUE_TIMEOUT = 600; // default timeout 10 minutes
 
 // mail
