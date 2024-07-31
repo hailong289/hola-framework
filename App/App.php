@@ -1,66 +1,28 @@
 <?php
 namespace App;
+use Hola\Application;
 use Hola\Core\Request;
 use Hola\Core\Response;
 use Hola\Core\Router;
 
 class App {
-    private $__controller;
-    private $__action;
-    private $__param = [];
+
     private $router;
     public function __construct(){}
     private function handleUrl(){
         try {
             $url = $this->router->url();
             $urlarr = array_values($url);
-            if (!empty($urlarr[0])) {
-                $this->__controller = $urlarr[0];
-                if (class_exists($this->__controller)) {
-                    $__controller = new \ReflectionClass($this->__controller);
-                    $params = $__controller->getConstructor()->getParameters();
-                    $agr = [];
-                    foreach ($params AS $param) {
-                        $class = $param->getClass()->name;
-                        if (!empty($class)) {
-                            array_push($agr, new $class());
-                        }
-                    }
-                    $this->__controller = new $this->__controller(...$agr);
-                } else {
-                    throw new \RuntimeException("{$this->__controller} does not exit", 500);
-                }
-                unset($urlarr[0]);
-            } else {
-                throw new \RuntimeException('Page not found', 404);
-            }
-            if (isset($urlarr[1])) {
-                $this->__action = $urlarr[1];
-                unset($urlarr[1]);
-            }
-            $this->__param = array_values($urlarr);
-            if (method_exists($this->__controller, $this->__action)) {
-                // xử lý method
-                $method = new \ReflectionMethod($this->__controller, $this->__action);
-                $agr = [];
-                foreach ($method->getParameters() as $ag){
-                    $class = $ag->getClass()->name;
-                    if (!empty($class)) {
-                        array_push($agr, new $class());
-                    }
-                }
-                foreach ($this->__param as $value) {
-                    array_push($agr, $value);
-                }
-                $result = $this->__controller->{$this->__action}(...$agr);
+            if (!empty($urlarr)) {
+                 $app = new Application();
+                 $result = $app->call($urlarr);
                 return [
                     "error_code" => 0,
                     "return" => $result,
                     "status_code" => 200
                 ];
-            }else{
-                $controller = serialize($this->__controller);
-                throw new \RuntimeException("Method {$this->__action} does not exit in controller {$controller}",500);
+            } else {
+                throw new \RuntimeException("Controller doest not exit",500);
             }
         }catch (\Throwable $e){
             $this->write_logs_error($e);
