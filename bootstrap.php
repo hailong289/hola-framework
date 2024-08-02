@@ -41,6 +41,12 @@ $appRegister->languageLoad();
 $appRegister->routerWorkLoad();
 
 /**
+ *  Load timezone
+ **/
+$appRegister->loadTimeZone();
+
+
+/**
  *  Initialize app
  **/
 $appRegister->initApp();

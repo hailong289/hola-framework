@@ -13,16 +13,16 @@ if (!empty($command_dir)) {
         $app->add(new $class());
     }
 }
-$app->add(new \Scripts\ControllerScript());
-$app->add(new \Scripts\ModelScript());
-$app->add(new \Scripts\ViewScript());
-$app->add(new \Scripts\RequestScript());
-$app->add(new \Scripts\MiddlewareScript());
-$app->add(new \Scripts\QueueScript());
-$app->add(new \Scripts\CommandScript());
-$app->add(new \Scripts\MailScript());
-$app->add(new \Scripts\RouterScript());
-$app->add(new \Scripts\CacheScript());
+$app->add(new \Hola\Scripts\ControllerScript());
+$app->add(new \Hola\Scripts\ModelScript());
+$app->add(new \Hola\Scripts\ViewScript());
+$app->add(new \Hola\Scripts\RequestScript());
+$app->add(new \Hola\Scripts\MiddlewareScript());
+$app->add(new \Hola\Scripts\QueueScript());
+$app->add(new \Hola\Scripts\CommandScript());
+$app->add(new \Hola\Scripts\MailScript());
+$app->add(new \Hola\Scripts\RouterScript());
+$app->add(new \Hola\Scripts\CacheScript());
 $app->run();
 
 
