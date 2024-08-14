@@ -11,16 +11,15 @@ composer create-project longdhdev/project_holaframework
 composer install
 ```
 
-## What new in version v1.0.8
-- Add router cache and connection configuration
-- Add file cache function
-- Model improvements 
-- Add connection rabbitmq and queue rabbitmq
-- Fixes FormRequest
-- Fixes Validation
-- Add the n + 1 query condition in the with function and improve the query relation
-- Add softDelete, pagination, paginationWithCount functions in the query builder
-- Refactor functions in index, boostrap, App 
+## What new in version v1.0.9
+- Add dependency injection
+- Refactor namespace
+- Model improvements
+- Add save, softDelete, pagination, paginationWithCount functions in model
+- Add application class
+- add registerCommand and app()
+- Improve response and queue
+- php version >= 8.0
 
 ## List
 
@@ -834,6 +833,41 @@ class News extends Model {
     }
 }
   
+```
+
+- Use pagination() function
+- This function will help shorten the code instead of having to use the page() and limit() functions as before.
+- The first parameter will be the limit and the second parameter will be the page
+- How to use
+
+```php
+       News::instance()->pagination(10, 1);
+```
+
+- Use paginationWithCount() function
+- This function will take 2 parameters and the page will then return the data forms that have been formatted according to the design
+- How to use
+```php
+     $result = News::instance()->paginationWithCount(10, 1);
+     //  Return data
+     [
+         "total" => 50,
+         "items" => [],
+         "page" => 1,
+         "limit" => $limit,
+         "total_page" => 10,
+     ]
+```
+
+- Use save() function
+- This function will be used to add or update 1 record
+- If the object has id data that already exists, it will be updated in the database, otherwise a new one will be added
+- How to use
+
+```php
+   $blog = new Blog();
+   $blog->name = 'Hi';
+   $blog->save();
 ```
 
 - use table with Database class
