@@ -10,7 +10,7 @@ define('__DIR__ROOT', __DIR__);
  * Initialize the load registration function
  **/
 
-$appRegister = new \System\Core\RegisterLoad();
+$appRegister = new \Hola\Core\RegisterLoad();
 
 /**
  *  Load the configs
@@ -39,6 +39,12 @@ $appRegister->languageLoad();
  *  Load the router
  **/
 $appRegister->routerWorkLoad();
+
+/**
+ *  Load timezone
+ **/
+$appRegister->loadTimeZone();
+
 
 /**
  *  Initialize app

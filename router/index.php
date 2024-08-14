@@ -1,5 +1,5 @@
 <?php
-use System\Core\ConfigRouter;
+use Hola\Core\ConfigRouter;
 $configRouter = new ConfigRouter();
 $configRouter->add([
     'web' => 'web',

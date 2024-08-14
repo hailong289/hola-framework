@@ -1,6 +1,6 @@
 <?php
 namespace Middleware;
-use System\Core\Request;
+use Hola\Core\Request;
 
 class AuthMiddleware {
     // return boolean function

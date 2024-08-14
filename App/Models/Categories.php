@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
-use System\Core\Model;
-use System\Core\Redis;
+use Hola\Core\Model;
+use Hola\Core\Redis;
 
 class Categories extends Model {
     protected static $tableName = 'categories';
