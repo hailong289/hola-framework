@@ -1,6 +1,6 @@
 <?php
 
-define('DATABASE',[
+return [
     "mysql" => [
         "default" => [
             "HOST" => config_env('DB_HOST', '127.0.0.1'),
@@ -55,6 +55,6 @@ define('DATABASE',[
             'readTimeout' => 0.0
         ],
     ]
-]);
+];
 
 
