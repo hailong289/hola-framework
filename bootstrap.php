@@ -14,11 +14,13 @@ $appRegister = new \Hola\Core\RegisterLoad();
 
 /**
  *  Load the configs
- *  or folders that you create in the project
  **/
-$appRegister->registerFolder([
-    'config'
-]);
+$appRegister->loadConfig();
+
+/**
+ *  Load folders that you create in the project
+ **/
+// $appRegister->registerFolder([]);
 
 /**
  *  Register session

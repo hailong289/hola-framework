@@ -13,6 +13,10 @@ const DB_PORT = '3306';
 const DB_NAME = 'blog';
 const DB_USERNAME = 'root';
 const DB_PASSWORD = '';
+const DB_OPTIONS = [
+    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+];
 // redis
 const REDIS_CONNECTION = 'redis';
 const REDIS_HOST = '127.0.0.1';

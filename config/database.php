@@ -7,14 +7,22 @@ return [
             "PORT" => config_env('DB_PORT', '3306'),
             "DATABASE_NAME" => config_env('DB_NAME', 'blog'),
             "USERNAME" => config_env('DB_USERNAME', 'root'),
-            "PASSWORD" => config_env('DB_PASSWORD', '')
+            "PASSWORD" => config_env('DB_PASSWORD', ''),
+            "OPTIONS" => config_env('DB_OPTIONS', [
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]),
         ],
         "production" => [
             "HOST" => config_env('DB_HOST_PRODUCTION', '127.0.0.1'),
             "PORT" => config_env('DB_PORT_PRODUCTION', '3306'),
             "DATABASE_NAME" => config_env('DB_NAME_PRODUCTION', 'default'),
             "USERNAME" => config_env('DB_USERNAME_PRODUCTION', 'root'),
-            "PASSWORD" => config_env('DB_PASSWORD_PRODUCTION', '')
+            "PASSWORD" => config_env('DB_PASSWORD_PRODUCTION', ''),
+            "OPTIONS" => config_env('DB_OPTIONS', [
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]),
         ]
     ],
     "pgsql" => [
@@ -23,14 +31,22 @@ return [
             "PORT" => config_env('DB_PORT', '5432'),
             "DATABASE_NAME" => config_env('DB_NAME', 'default'),
             "USERNAME" => config_env('DB_USERNAME', 'postgres'),
-            "PASSWORD" => config_env('DB_PASSWORD', 'postgres')
+            "PASSWORD" => config_env('DB_PASSWORD', 'postgres'),
+            "OPTIONS" => config_env('DB_OPTIONS', [
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]),
         ],
         "production" => [
             "HOST" => config_env('DB_HOST_PRODUCTION', 'postgres_host'),
             "PORT" => config_env('DB_PORT_PRODUCTION', '5432'),
             "DATABASE_NAME" => config_env('DB_NAME_PRODUCTION', 'default'),
             "USERNAME" => config_env('DB_USERNAME_PRODUCTION', 'postgres'),
-            "PASSWORD" => config_env('DB_PASSWORD_PRODUCTION', 'postgres')
+            "PASSWORD" => config_env('DB_PASSWORD_PRODUCTION', 'postgres'),
+            "OPTIONS" => config_env('DB_OPTIONS', [
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]),
         ]
     ],
     'redis' => [
