@@ -19,11 +19,11 @@ return [
 
     "connections" => [
         "database" => [
-            "HOST" => config_env('DB_HOST', '127.0.0.1'),
-            "PORT" => config_env('DB_PORT', '3306'),
-            "DATABASE_NAME" => config_env('DB_NAME', 'blog'),
-            "USERNAME" => config_env('DB_USERNAME', 'root'),
-            "PASSWORD" => config_env('DB_PASSWORD', '')
+            "host" => config_env('DB_HOST', '127.0.0.1'),
+            "port" => config_env('DB_PORT', '3306'),
+            "db_name" => config_env('DB_NAME', 'blog'),
+            "username" => config_env('DB_USERNAME', 'root'),
+            "password" => config_env('DB_PASSWORD', '')
         ],
         "redis" => [
             'host' => config_env('REDIS_HOST', '127.0.0.1'),

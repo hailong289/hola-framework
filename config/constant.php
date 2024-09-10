@@ -14,10 +14,11 @@ const DB_NAME = 'blog';
 const DB_USERNAME = 'root';
 const DB_PASSWORD = '';
 const DB_OPTIONS = [
-    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
 ];
 // redis
+const REDIS_ENVIRONMENT = 'default';
 const REDIS_CONNECTION = 'redis';
 const REDIS_HOST = '127.0.0.1';
 const REDIS_PORT = '6379';
@@ -59,3 +60,18 @@ const MAIL_DEBUG = 0;
 //(3) As DEBUG_SERVER plus connection status
 //(4) Low-level data output, all messages.
 // end mail
+
+// rabbitMQ
+const RABBITMQ_HOST = '127.0.0.1';
+const RABBITMQ_PORT = '5672';
+const RABBITMQ_USER = 'guest';
+const RABBITMQ_PASSWORD = 'guest';
+const RABBITMQ_VHOST = '/';
+const RABBITMQ_SCHEME = '';
+const RABBITMQ_OPTIONS = [
+    'cafile' => null,
+    'local_cert' => null,
+    'local_key' => null,
+    'verify_peer' => false,
+    'passphrase' => null,
+];
