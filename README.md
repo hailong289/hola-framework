@@ -306,12 +306,74 @@ class HomeController extends BaseController {
   <title><?=$title?></title>
   <!-- or use variable var -->
   <title><?=@var('title')?></title>
+  <!-- or use variable  -->
+  <title>{{ $title }}</title>
 </head>
 <body>
 
 </body>
 </html>
 ```
+- In the new version I added Render View features including properties and a simpler way to declare variables
+- Use ``foreach``
+```html
+<body>
+     @foreach($var as $name) 
+         <div>{{ $name }}</div>
+     @endforeach
+</body>
+```
+
+- Use ``if``
+```html
+<body>
+     @if(true) 
+         <div>Hello</div>
+     @endif
+</body>
+```
+
+- Use ``if else``
+```html
+<body>
+     @if(true) 
+         <div>open</div>
+     @else
+         <div>close</div>
+     @endif
+</body>
+```
+
+- Use ``if elseif else``
+```html
+<body>
+     @if($a == 1) 
+         <div>1</div>
+     @elseif($a == 2)
+         <div>2</div>
+     @else
+        <div>0</div>
+     @endif
+</body>
+```
+
+- Use ``switch case``
+```html
+<body>
+     @switch($a) 
+        @case(1)
+           <div>1</div>
+           @break
+       @case(2)
+          <div>1</div>
+          @break
+       @default
+         <div>0</div>
+         @break
+     @endswitch
+</body>
+```
+
 - Run command create view
 ```cmd
 - php cli.php create:view name_view
