@@ -1,7 +1,7 @@
 <?php
 const URL_PATH = 'http://localhost';
 const DEBUG_LOG = true;
-const DEBUG_LOG_CONNECTION = false;
+const DEBUG_LOG_CONNECTION = true;
 const LANGUAGE = 'vi';
 const TIMEZONE = 'Asia/Ho_Chi_Minh';
 
@@ -29,7 +29,7 @@ const REDIS_PASSWORD = null;
 // Rabbit MQ
 const RABBITMQ_HOST = '127.0.0.1';
 const RABBITMQ_VHOST = '/';
-const RABBITMQ_PORT = '5671';
+const RABBITMQ_PORT = '5672';
 const RABBITMQ_USER = 'guest';
 const RABBITMQ_PASSWORD = 'guest';
 const RABBITMQ_SCHEME = '';
