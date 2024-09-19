@@ -1,13 +1,15 @@
 <?php
 namespace Middleware;
 use Hola\Core\Request;
+use Hola\Core\Response;
 
 class AuthMiddleware {
     // return boolean function
-     public function handle(Request $request){
+     public function handle(Request $request, Response $response){
+         $request->set('name', 1);
          if(!$request->session('is_login')){
-            return $request->close('Login does not exit');
+            return $response->close('Login does not exist');
          }
-         return $request->next();
+         return $response->next($request);
      }
 }
