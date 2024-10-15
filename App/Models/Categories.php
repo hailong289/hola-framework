@@ -1,13 +1,13 @@
 <?php
 namespace App\Models;
-use Hola\Core\Model;
+use Hola\DataBase\Model;
 use Hola\Core\Redis;
 
 class Categories extends Model {
-    protected static $tableName = 'categories';
-    protected static $times_auto = false;
+    protected static $table = 'category';
+    protected static $time_auto = false;
     protected static $date_create = "date_created";
-    protected static $date_update = "date_update";
+    protected static $date_update = "date_updated";
     protected static $field = [
         'name',
         'view'
