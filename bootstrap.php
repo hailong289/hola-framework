@@ -30,14 +30,6 @@ $appRegister->loadConfig();
 //  $appRegister->registerSession();
 
 /**
- *  Load the language
- *   If you do not want to default load using LANGUAGE constant in configs/constant.php
- *   then you can pass parameters to the languageLoad function below. For example:
- *   languageLoad('vi') or languageLoad('en')
- **/
-$appRegister->languageLoad();
-
-/**
  *  Load the router
  **/
 $appRegister->routerWorkLoad();
