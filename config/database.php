@@ -10,15 +10,13 @@ return [
      */
     "connections" => [
         "mysql" => [
+            'driver' => 'mysql',
             "host" => config_env('DB_HOST', '127.0.0.1'),
             "port" => config_env('DB_PORT', '3306'),
             "db_name" => config_env('DB_NAME', 'blog'),
             "username" => config_env('DB_USERNAME', 'root'),
             "password" => config_env('DB_PASSWORD', ''),
-            "options" => config_env('DB_OPTIONS', [
-                \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
-            ]),
+            "options" => config_env('DB_OPTIONS', null),
         ],
 //    "mysql_production" => [
 //        "host" => config_env('DB_HOST_PRODUCTION', '127.0.0.1'),
@@ -32,15 +30,13 @@ return [
 //        ]),
 //    ],
         "pgsql" => [
+            'driver' => 'pgsql',
             "host" => config_env('DB_HOST', 'postgres_host'),
             "port" => config_env('DB_PORT', '5432'),
             "db_name" => config_env('DB_NAME', 'default'),
             "username" => config_env('DB_USERNAME', 'postgres'),
             "password" => config_env('DB_PASSWORD', 'postgres'),
-            "options" => config_env('DB_OPTIONS', [
-               \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-               \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
-            ]),
+            "options" => config_env('DB_OPTIONS',null),
         ],
 //    "pgsql_production" => [
 //        "host" => config_env('DB_HOST_PRODUCTION', 'postgres_host'),
@@ -54,6 +50,7 @@ return [
 //        ]),
 //    ],
         "redis" => [
+            'driver' => 'redis',
             'host' => config_env('REDIS_HOST', '127.0.0.1'),
             'port' => config_env('REDIS_PORT', '6379'),
             'username' => config_env('REDIS_USER', 'default'),

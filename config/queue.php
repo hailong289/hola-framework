@@ -19,6 +19,7 @@ return [
 
     "connections" => [
         "database" => [
+            'driver' => 'mysql',
             "host" => config_env('DB_HOST', '127.0.0.1'),
             "port" => config_env('DB_PORT', '3306'),
             "db_name" => config_env('DB_NAME', 'blog'),
@@ -30,6 +31,7 @@ return [
             ]),
         ],
         "redis" => [
+            'driver' => 'redis',
             'host' => config_env('REDIS_HOST', '127.0.0.1'),
             'port' => config_env('REDIS_PORT', '6379'),
             'username' => config_env('REDIS_USER', 'default'),
@@ -40,6 +42,7 @@ return [
             'readTimeout' => 0.0
         ],
         "rabbitmq" => [
+            'driver' => 'rabbitmq',
             "host" => config_env('RABBITMQ_HOST', '127.0.0.1'),
             "port" => config_env('RABBITMQ_PORT', '5672'),
             "username" => config_env('RABBITMQ_USER', 'default'),
