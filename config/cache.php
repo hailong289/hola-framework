@@ -38,10 +38,10 @@ return [
     'connections' => [
         'redis' => [
             'driver' => 'redis',
-            'host' => config_env('REDIS_HOST', '127.0.0.1'),
-            'port' => config_env('REDIS_PORT', '6379'),
-            'username' => config_env('REDIS_USER', 'default'),
-            'password' => config_env('REDIS_PASSWORD', null),
+            'host' => conval('REDIS_HOST', '127.0.0.1'),
+            'port' => conval('REDIS_PORT', '6379'),
+            'username' => conval('REDIS_USER', 'default'),
+            'password' => conval('REDIS_PASSWORD', null),
             'timeout' => 0,
             'reserved' => null,
             'retryInterval' => 0,
