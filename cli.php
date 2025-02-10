@@ -7,6 +7,5 @@ $appRegister = new \Hola\Container\RegisterLoad();
 $appRegister->initCLI();
  // register command
 $application = new App\App();
-$application->register();
 $application->registerCommand();
 $application->runCLI();
