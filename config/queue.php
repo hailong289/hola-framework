@@ -5,7 +5,7 @@ return [
      * connection
      */
     "default" => conval('QUEUE_WORK', "database"),
-    "default_connection" => conval('QUEUE_CONNECTION', "database"),
+    "default_connections" => conval('QUEUE_CONNECTION', "database"),
     /**
      * queue key
      */
