@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Models\Categories;
-use Hola\Core\Request;
+use Hola\Transport\Request;
 
 class HomeController {
     public function __construct() {}
