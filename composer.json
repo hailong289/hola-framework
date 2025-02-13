@@ -32,7 +32,7 @@
     "platform-check": false
   },
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "longdhdev/holaframework": "v1.0.9"
   },
   "minimum-stability": "dev",
