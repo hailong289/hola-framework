@@ -1,6 +1,7 @@
 <?php
-namespace Commands;
+namespace App\Commands;
 use Hola\Core\Command;
+
 class DefaultCommand extends Command {
     public function __construct()
     {

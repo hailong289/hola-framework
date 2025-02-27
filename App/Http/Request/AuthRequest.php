@@ -1,5 +1,5 @@
 <?php
-namespace Request;
+namespace App\Http\Request;
 use Hola\Core\FormRequest;
 
 class AuthRequest extends FormRequest

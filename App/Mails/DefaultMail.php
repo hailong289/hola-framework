@@ -1,5 +1,5 @@
 <?php
-namespace Mails;
+namespace App\Mails;
 use Hola\Mailing\MailerBuilder;
 
 class DefaultMail extends MailerBuilder {
