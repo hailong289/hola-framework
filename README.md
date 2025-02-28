@@ -47,16 +47,15 @@ composer install
 - Router will receive 2 parameters, 1st parameter will be url, 2nd parameter will be array including controller and function in controller
 
 ```php
-use Hola\Core\Router;
-use App\Controllers\HomeController;
+use App\Http\Controllers\HomeController;use Hola\Core\Router;
 
 Router::get('/', [HomeController::class,'index']);
 Router::get('/home', [HomeController::class,'index']);
 ```
 - Use parameters
+
 ```php
-use Hola\Core\Router;
-use App\Controllers\HomeController;
+use App\Http\Controllers\HomeController;use Hola\Core\Router;
 
 // url {domain}/home/1
 Router::get('/home/{id}', [HomeController::class,'index']); 

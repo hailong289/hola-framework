@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Middleware;
-use Hola\Core\Middleware as MiddlewareCore;
+use Hola\Core\MiddlewareCore;
 use Hola\Transport\Request;
 use Hola\Transport\Response;
 
