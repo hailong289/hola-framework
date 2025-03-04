@@ -1,5 +1,11 @@
 <?php
 /**
+ * load test
+ * open this code if you want to test
+ */
+//require_once "test.php";
+
+/**
  * load autoload
  */
 require 'vendor/autoload.php';
