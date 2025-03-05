@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Middleware;
+use Hola\Transport\Middleware;
 
-use Hola\Core\MiddlewareCore;
-
-class VerifyCsrfToken extends MiddlewareCore {
+class VerifyCsrfToken extends Middleware {
     /**
      * @var string[] $except
      * Do not check CSRF token with these paths

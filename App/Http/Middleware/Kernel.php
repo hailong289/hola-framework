@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Middleware;
-
-class Kernel {
+use Hola\Transport\Interface\IKernel;
+class Kernel implements IKernel {
     public $routerMiddleware = [
         "auth" => \App\Http\Middleware\AuthMiddleware::class
     ];
@@ -16,11 +16,11 @@ class Kernel {
         \App\Http\Middleware\VerifyCsrfToken::class
     ];
 
-    public function getMiddleware() {
+    public function getMiddlewares() {
         return $this->routerMiddleware;
     }
 
-    public function getRequireMiddleware() {
+    public function getRequiredMiddleWares() {
         return $this->requireMiddleware;
     }
 
