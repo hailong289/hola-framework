@@ -44,7 +44,7 @@ class DefaultMail extends MailerBuilder {
     }
 
     /**
-     * @return string
+     * @return string|\Hola\Transport\ResponseBuilder
      * Send email with content as html string
      * This function can be deleted if not used
      */

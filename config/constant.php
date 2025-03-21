@@ -1,8 +1,6 @@
 <?php
 const URL_PATH = 'http://localhost';
 const PROJECT_KEY='evAcrka08jQfbHznXbx5W47H6bZKJ6Jg';
-const DEBUG_LOG = true;
-const DEBUG_LOG_CONNECTION = true;
 const LANGUAGE = 'vi';
 const TIMEZONE = 'Asia/Ho_Chi_Minh';
 
