@@ -9,5 +9,4 @@ class VerifyCsrfToken extends Middleware {
      * Do not check CSRF token with these paths
      */
      public $except = [];
-
 }
