@@ -1,7 +1,6 @@
 <?php
 namespace App\Models;
 use Hola\DataBase\Model;
-use Hola\Core\Redis;
 
 class Categories extends Model {
     protected static $table = 'category';
