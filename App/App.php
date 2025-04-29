@@ -1,7 +1,7 @@
 <?php
 namespace App;
 use Hola\Application;
-use Hola\Core\ViewRender;
+use Hola\Views\ViewRender;
 
 class App extends Application {
 
