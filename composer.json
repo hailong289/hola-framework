@@ -1,5 +1,5 @@
 {
-  "name": "longdhdev/project_holaframework",
+  "name": "longdhdev/holaframework",
   "type": "project",
   "description": "A simple php framework",
   "homepage": "https://github.com/hailong289/hola-framework.git",
@@ -33,7 +33,7 @@
   },
   "require": {
     "php": ">=7.4",
-    "longdhdev/holaframework": "v1.0.9"
+    "longdhdev/pkholaframework": "v1.0.9"
   },
   "minimum-stability": "dev",
   "prefer-stable" : true,
