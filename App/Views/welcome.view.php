@@ -13,7 +13,7 @@
     <h1>Hola Framework</h1>
     <p class="word">A simple php framework that makes writing php code simpler and faster</p>
     <p>Contact: longdh2.dev@gmail.com</p>
-    <a href="#" class="button">Document</a>
+    <a href="https://hais-organization-17.gitbook.io/hola-framework-docs/" class="button">Document</a>
 </div>
 </body>
 </html>

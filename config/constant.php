@@ -1,5 +1,6 @@
 <?php
 const URL_PATH = 'http://localhost';
+const APP_DEBUG = false; // 0: off, 1: on
 const PROJECT_KEY='evAcrka08jQfbHznXbx5W47H6bZKJ6Jg';
 const LANGUAGE = 'vi';
 const TIMEZONE = 'Asia/Ho_Chi_Minh';
