@@ -13,6 +13,7 @@ class Kernel implements IKernel {
      * comment this line if you don't want to use CSRF token
      */
     public $requireMiddleware = [
+        \App\Http\Middleware\CorsMiddleware::class,
         \App\Http\Middleware\VerifyCsrfToken::class
     ];
 
