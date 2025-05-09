@@ -8,4 +8,5 @@ $appRegister->initCLI();
  // register command
 $application = new App\App();
 $application->register();
+$application->registerEvent();
 $application->runCLI();
