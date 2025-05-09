@@ -13,6 +13,12 @@ define('__DIR__ROOT', __DIR__);
 $appRegister = new \Hola\Container\RegisterLoad();
 
 /**
+ *  Load the env
+ **/
+
+$appRegister->loadEnvironment();
+
+/**
  *  Load the configs
  **/
 $appRegister->loadConfig();
