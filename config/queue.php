@@ -25,10 +25,10 @@ return [
             "db_name" => conval('DB_NAME', 'blog'),
             "username" => conval('DB_USERNAME', 'root'),
             "password" => conval('DB_PASSWORD', ''),
-            "options" => conval('DB_OPTIONS', [
+            "options" => [
                 \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
-            ]),
+            ],
         ],
         "redis" => [
             'driver' => 'redis',
@@ -49,13 +49,13 @@ return [
             "password" => conval('RABBITMQ_PASSWORD', ''),
             "vhost" => conval('RABBITMQ_VHOST', '/'),
             "scheme" => conval('RABBITMQ_SCHEME', ''),
-            "options" => conval('RABBITMQ_OPTIONS', [
+            "options" => [
                 'cafile' => null,
                 'local_cert' =>null,
                 'local_key' => null,
                 'verify_peer' => false,
                 'passphrase' => null,
-            ]),
+            ],
         ]
     ]
 ];
