@@ -22,7 +22,7 @@ class AuthRequest extends FormRequest
      * This function you can return view as you want, this function can be declared or not needed
      * If you want to use this function, you must declare the auth function first
      */
-    public function view_auth() {
+    public function failedView() {
         return 'error.index';
     }
 
@@ -31,7 +31,7 @@ class AuthRequest extends FormRequest
      * This function you can return data as you want, this function can be declared or not needed
      * If you want to use this function, you must declare the auth function first
      */
-    public function data_auth() {
+    public function withData() {
         return [
             'message' => 'unauthorized',
             'code' => 403
