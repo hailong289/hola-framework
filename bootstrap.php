@@ -1,9 +1,6 @@
 <?php
-ini_set('error_reporting', E_STRICT);
-/**
-* set __DIR__ROOT
-**/
-
+error_reporting(E_ALL);
+ini_set('display_errors', '0');
 define('__DIR__ROOT', __DIR__);
 
 /**
@@ -11,6 +8,12 @@ define('__DIR__ROOT', __DIR__);
  **/
 
 $appRegister = new \Hola\Container\RegisterLoad();
+
+/**
+ *  Load error handler
+ **/
+
+$appRegister->registerErrorHandler();
 
 /**
  *  Load the env
